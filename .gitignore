@@ -5,3 +5,6 @@ node_modules/
 todo-api/package-lock.json
 
 /package-lock.json
+todo-api/config/
+todo-api/public/images/
+todo-api/public/javascripts/
