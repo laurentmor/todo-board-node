@@ -1,10 +1,11 @@
 var express = require('express');
 var router = express.Router();
-//log=require('../config/log');
+var conf=require('../config/config');
 
 /* GET home page. */
-router.get('/', function(req, res) {
-
+router.get('/', function(req, res,cb) {
+console.log(conf);
+    cb();
 
 });
 
