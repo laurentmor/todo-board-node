@@ -9,6 +9,9 @@ gulp.task('prepare-for-prod',function () {
           .pipe(replace("localhost","HOST")));
 });
 
+/**
+ *
+ */
 gulp.task('prepare-for-dev',function () {
   return gulp.src("package.json")
       .pipe(replace("node","node-dev"))

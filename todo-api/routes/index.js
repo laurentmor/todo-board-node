@@ -4,9 +4,7 @@ var conf=require('../config/config');
 
 /* GET home page. */
 router.get('/', function(req, res,cb) {
-console.log(conf);
-    cb();
-
+res.send("You're not getting anywhere, boyo");
 });
 
 module.exports = router;

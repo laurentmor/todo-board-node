@@ -1,19 +1,44 @@
-var express = require('express');
-var path = require('path');
+var express  = require('express');
+var app      = express();
+var port     = process.env.PORT || 3000;
+var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
-logger = require('morgan');
+var session = require('express-session');
+var mongoose = require('mongoose');
+var passport = require('passport');
+
+var logger=require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var URL = require("./config/config.json").DB.URL;
+// Connect to DB
+mongoose.connect(URL).then(function (value) {});
+var db = mongoose.connection;
 
-var app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+// BodyParser Middleware
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
 
+// Express Session
+app.use(session({
+    secret: '6D59713374367739',
+    saveUninitialized: true,
+    resave: true
+}));
+
+
+
+
+// Passport init
+app.use(passport.initialize());
+app.use(passport.session());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
