@@ -9,7 +9,7 @@ var passport = require('passport');
 
 var logger=require('morgan');
 
-var indexRouter = require('./routes/index');
+var todoRouter = require('./routes/todos');
 var usersRouter = require('./routes/users');
 var URL = require("./config/config.json").DB.URL;
 // Connect to DB
@@ -39,7 +39,7 @@ app.use(session({
 // Passport init
 app.use(passport.initialize());
 app.use(passport.session());
-app.use('/', indexRouter);
+app.use('/todos', todoRouter);
 app.use('/users', usersRouter);
 
 module.exports = app;

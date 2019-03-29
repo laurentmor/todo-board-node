@@ -20,13 +20,12 @@ var UserSchema = db.Schema({
 
 var User;
 try {
-     User = module.exports = db.model('User');
+    User = module.exports = db.model('User');
 
 } catch (error) {
-     User = module.exports = db.model('User', UserSchema);
+    User = module.exports = db.model('User', UserSchema);
 
 }
-
 
 
 module.exports.createUser = function (newUser, callback) {
@@ -47,25 +46,19 @@ module.exports.getUserById = function (id, callback) {
     User.findById(id, callback);
 };
 
-module.exports.test=function(callback){
-    var con= db.connection;
-    console.log(con==undefined);
-    con.once('open', function() {
-        console.log("In open");
-    });
-    callback.status(200).send({}).end();
-};
-module.exports.getAllUsers=function(callback){
 
-    User.find({}, function(err, users) {
+module.exports.getAllUsers = function (callback) {
+
+    User.find({}, function (err, users) {
         var userMap = {};
-        users.forEach(function(user) {
+        users.forEach(function (user) {
             userMap[user._id] = user;
         });
 
         callback.status(200).send(userMap).end();
 
-}); };
+    });
+};
 
 module.exports.comparePassword = function (candidatePassword, hash, callback) {
     bcrypt.compare(candidatePassword, hash, function (err, isMatch) {
