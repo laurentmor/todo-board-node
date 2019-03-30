@@ -47,18 +47,14 @@ module.exports.getUserById = function (id, callback) {
 };
 
 
-module.exports.getAllUsers = function (callback) {
-
-    User.find({}, function (err, users) {
-        var userMap = {};
-        users.forEach(function (user) {
-            userMap[user._id] = user;
-        });
-
-        callback.status(200).send(userMap).end();
-
+module.exports.getAllUser=function (filter,callback) {
+    User.find(filter,function (err, user) {
+        callback(user);
     });
 };
+
+
+
 
 module.exports.comparePassword = function (candidatePassword, hash, callback) {
     bcrypt.compare(candidatePassword, hash, function (err, isMatch) {

@@ -82,6 +82,21 @@ router.get('/user', function(req, res){
   res.send(req.user);
 });
 
+router.get('/all', function (req, res) {
+
+  User.getAllUser({}, function (result) {
+    if(!req.user){
+      res.status(403).send().end();
+    }
+    else{
+      if (result) res.status(200).send(result).end();
+      else res.status(404).end();
+    }
+
+  });
+
+});
+
 
 // Endpoint to logout
 router.get('/logout', function(req, res){

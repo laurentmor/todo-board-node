@@ -34,6 +34,12 @@ module.exports.createTodo=function(newTodo,callback){
 
 };
 
+module.exports.getAllTodo=function (filter,callback) {
+     Todo.find(filter,function (err, todo) {
+         callback(todo);
+     });
+};
+
 
 
 
