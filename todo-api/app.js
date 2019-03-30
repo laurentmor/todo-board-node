@@ -13,7 +13,8 @@ var todoRouter = require('./routes/todos');
 var usersRouter = require('./routes/users');
 var URL = require("./config/config.json").DB.URL;
 // Connect to DB
-mongoose.connect(URL).then(function (value) {});
+mongoose.connect(URL, {useNewUrlParser: true});
+mongoose.set('useCreateIndex', true);
 var db = mongoose.connection;
 
 
