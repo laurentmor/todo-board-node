@@ -1,9 +1,10 @@
 var express  = require('express');
 var router      = express.Router();
-
-
 var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 var User = require('../models/user');
+var flash = require("connect-flash");
+router.use(flash());
 
 
 
@@ -18,12 +19,13 @@ router.post('/register', function(req, res){
   var password = req.body.password;
   var password2 = req.body.password2;
 
-  if (password == password2){
+  if (password === password2) {
     var newUser = new User({
       name: req.body.name,
       mail: req.body.email,
       username: req.body.username,
       password: req.body.password
+
     });
 
     User.createUser(newUser, function(err, user){
@@ -31,14 +33,20 @@ router.post('/register', function(req, res){
       res.send(user).end()
     });
   } else{
-    res.status(500).send("{erros: \"Passwords don't match\"}").end()
+    res.status(500).send("{error: \"Passwords don't match\"}").end()
   }
 });
 
 
 // Using LocalStrategy with passport
-var LocalStrategy = require('passport-local').Strategy;
-passport.use(new LocalStrategy(
+
+var options = {
+  usernameField: "username",
+  passwordField: "password",
+  passReqToCallback: true
+
+};
+passport.use("api", new LocalStrategy(options,
     function(username, password, done) {
       User.getUserByUsername(username, function(err, user){
         if(err) throw err;
@@ -71,7 +79,11 @@ passport.deserializeUser(function(id, done) {
 
 // Endpoint to login
 router.post('/login',
-    passport.authenticate('local'),
+
+    passport.authenticate(
+        'api',
+        {successRedirect: '/', failureRedirect: '/login', failureFlash: true}
+    ),
     function(req, res) {
       res.send(req.user);
     }
