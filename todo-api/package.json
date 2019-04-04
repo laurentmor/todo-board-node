@@ -1,25 +1,27 @@
 {
   "name": "auth-sys",
   "version": "1.0.0",
-  "description": "",
+  "description": "An api to manage todos with authentication support",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node-dev index"
   },
-  "author": "",
-  "license": "ISC",
+  "repository": "https://github.com/laurentmor/todo-board-node.git",
+  "author": "Laurent Morissette",
+  "license": "MIT",
   "dependencies": {
     "bcryptjs": "*",
-    "body-parser": "~1.15.2",
-    "cancan": "^3.1.0",
+    "body-parser": "~1.18.3",
     "cookie-parser": "~1.4.3",
-    "express": "~4.14.0",
-    "express-session": "~1.14.1",
-    "mongoose": "~4.13.1",
-    "passport": "~0.3.2",
-    "passport-facebook": "~2.1.1",
-    "passport-google-oauth": "~1.0.0",
-    "passport-local": "~1.0.0",
-    "passport-twitter": "~1.0.4"
+    "express": "~4.16.4",
+    "express-session": "^1.15.6",
+    "mongoose": "~5.4.22",
+    "passport": "~0.4.0",
+    "passport-local": "~1.0.0"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.0",
+    "gulp-replace": "^1.0.0"
   }
 }
