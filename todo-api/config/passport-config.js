@@ -2,7 +2,7 @@ var passport = require('passport');
 var User = require('../models/user');
 module.exports.setup = function () {
 
-    console.log("*** configuring passport ***");
+    log.info("*** configuring passport ***");
     // Using LocalStrategy with passport
     var LocalStrategy = require('passport-local').Strategy;
     passport.use(new LocalStrategy(

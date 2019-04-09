@@ -1,14 +1,15 @@
-var express = require('express');
-var router = express.Router();
-var passport = require('passport');
-var path = require('path');
+var express = require('express'),
+    router = express.Router(),
+    passport = require('passport'),
+    path = require('path'),
+    User = require('../models/user');
+
 router.get('/', function displayHomer(req, res) {
     res.sendFile(path.join(__dirname, '.', '../homer.png'));
     //res.sendFile('homer.png');
 });
 
-// Register User
-router.post('/register', function (req, res) {
+function createValidUserFromRequest(req, res) {
     var password = req.body.password;
     var password2 = req.body.password2;
 
@@ -19,14 +20,21 @@ router.post('/register', function (req, res) {
             username: req.body.username,
             password: req.body.password
         });
-
-        User.createUser(newUser, function (err, user) {
-            if (err) throw err;
-            res.send(user).end()
-        });
+        return newUser;
     } else {
         res.status(500).send("{erros: \"Passwords don't match\"}").end()
     }
+}
+
+// Register User
+router.post('/create', function (req, res) {
+
+    var validUser = createValidUserFromRequest(req, res);
+    User.createUser(validUser, function (err, user) {
+            if (err) throw err;
+            res.send(user).end()
+        });
+
 });
 
 
@@ -35,6 +43,8 @@ router.post('/login',
     passport.authenticate('local'),
     function (req, res) {
         res.send(req.user);
+
+        console.log(req.isAuthenticated());
     }
 );
 
