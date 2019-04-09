@@ -49,3 +49,7 @@ module.exports.comparePassword = function(candidatePassword, hash, callback){
     	callback(null, isMatch);
 	});
 };
+
+module.exports.hasRole = function (user, role) {
+    return user.role === role;
+};

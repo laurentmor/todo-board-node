@@ -62,7 +62,7 @@ router.get('/logout', function (req, res) {
 
 router.get('/all', function (req, res) {
     var user = req.user;
-    if (req.isAuthenticated() && hasRole(user, "admin")) {
+    if (req.isAuthenticated() && User.hasRole(user, "admin")) {
         User.find({}, function (err, result) {
             if (err) throw err;
             else res.status(200).send(result).end();
@@ -71,7 +71,5 @@ router.get('/all', function (req, res) {
         res.status(401).end();
     }
 });
-hasRole = function (user, role) {
-    return user.role === role;
-};
+
 module.exports = router;
