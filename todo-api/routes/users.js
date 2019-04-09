@@ -44,7 +44,7 @@ router.post('/login',
     function (req, res) {
         res.send(req.user);
 
-        console.log(req.isAuthenticated());
+
     }
 );
 
@@ -60,4 +60,18 @@ router.get('/logout', function (req, res) {
     res.send(null)
 });
 
+router.get('/all', function (req, res) {
+    var user = req.user;
+    if (req.isAuthenticated() && hasRole(user, "admin")) {
+        User.find({}, function (err, result) {
+            if (err) throw err;
+            else res.status(200).send(result).end();
+        })
+    } else {
+        res.status(401).end();
+    }
+});
+hasRole = function (user, role) {
+    return user.role === role;
+};
 module.exports = router;
