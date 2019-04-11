@@ -6,23 +6,24 @@ var express = require('express'),
 
 router.get('/', function displayHomer(req, res) {
     res.sendFile(path.join(__dirname, '.', '../homer.png'));
-    //res.sendFile('homer.png');
+
 });
 
-function createValidUserFromRequest(req, res) {
+function createValidUserFromRequest(req) {
     var password = req.body.password;
-    var password2 = req.body.password2;
 
-    if (password === password2) {
-        var newUser = new User({
+
+    /** @namespace req.body.password2 */
+    if (password === req.body.password2) {
+        return new User({
             name: req.body.name,
             email: req.body.email,
             username: req.body.username,
             password: req.body.password
         });
-        return newUser;
+
     } else {
-        res.status(500).send("{erros: \"Passwords don't match\"}").end()
+        return null;
     }
 }
 
@@ -30,23 +31,28 @@ function createValidUserFromRequest(req, res) {
 router.post('/create', function (req, res) {
 
     var validUser = createValidUserFromRequest(req, res);
-    User.createUser(validUser, function (err, user) {
+    if (validUser) {
+        User.createUser(validUser, function (err, user) {
             if (err) throw err;
             res.send(user).end()
         });
+    } else res.status(500).send("{error: \"Passwords don't match\"}").end();
 
 });
 
 
 // Endpoint to login
-router.post('/login',
-    passport.authenticate('local'),
-    function (req, res) {
+router.post('/login', function (req, res) {
+    var options = {successRedirect: '/', failureRedirect: '/login'};
+    passport.authenticate('local', options, function () {
         res.send(req.user);
 
+    });
+});
 
-    }
-);
+
+
+
 
 // Endpoint to get current user
 router.get('/user', function (req, res) {
@@ -72,4 +78,5 @@ router.get('/all', function (req, res) {
     }
 });
 
+// noinspection JSUndefinedPropertyAssignment
 module.exports = router;
