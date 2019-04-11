@@ -10,3 +10,6 @@ todo-api/public/images/
 todo-api/public/javascripts/
 /todo-api/.idea/
 
+/todo-api/combined.log
+/todo-api/.env
+/todo-api/error.log
