@@ -1,91 +1,82 @@
-var express  = require('express');
-var router      = express.Router();
+var express = require('express'),
+    router = express.Router(),
+    passport = require('passport'),
+    path = require('path'),
+    User = require('../models/user');
 
+router.get('/', function displayHomer(req, res) {
+    res.sendFile(path.join(__dirname, '.', '../homer.png'));
 
-var passport = require('passport');
-var User = require('../models/user');
-
-
-
-
-
-router.get('/',function (req,res) {
- res.send("No, no!");
 });
+
+function createValidUserFromRequest(req) {
+    var password = req.body.password;
+
+
+    /** @namespace req.body.password2 */
+    if (password === req.body.password2) {
+        return new User({
+            name: req.body.name,
+            email: req.body.email,
+            username: req.body.username,
+            password: req.body.password
+        });
+
+    } else {
+        return null;
+    }
+}
 
 // Register User
-router.post('/register', function(req, res){
-  var password = req.body.password;
-  var password2 = req.body.password2;
+router.post('/create', function (req, res) {
 
-  if (password == password2){
-    var newUser = new User({
-      name: req.body.name,
-      mail: req.body.email,
-      username: req.body.username,
-      password: req.body.password
-    });
-
-    User.createUser(newUser, function(err, user){
-      if(err) throw err;
-      res.send(user).end()
-    });
-  } else{
-    res.status(500).send("{erros: \"Passwords don't match\"}").end()
-  }
-});
-
-
-// Using LocalStrategy with passport
-var LocalStrategy = require('passport-local').Strategy;
-passport.use(new LocalStrategy(
-    function(username, password, done) {
-      User.getUserByUsername(username, function(err, user){
-        if(err) throw err;
-        if(!user){
-          return done(null, false, {message: 'Unknown User'});
-        }
-
-        User.comparePassword(password, user.password, function(err, isMatch){
-          if(err) throw err;
-          if(isMatch){
-            return done(null, user);
-          } else {
-            return done(null, false, {message: 'Invalid password'});
-          }
+    var validUser = createValidUserFromRequest(req, res);
+    if (validUser) {
+        User.createUser(validUser, function (err, user) {
+            if (err) throw err;
+            res.send(user).end()
         });
-      });
-    }
-));
+    } else res.status(500).send("{error: \"Passwords don't match\"}").end();
 
-passport.serializeUser(function(user, done) {
-  done(null, user.id);
-});
-
-passport.deserializeUser(function(id, done) {
-  User.getUserById(id, function(err, user) {
-    done(err, user);
-  });
 });
 
 
 // Endpoint to login
-router.post('/login',
-    passport.authenticate('local'),
-    function(req, res) {
-      res.send(req.user);
-    }
-);
+router.post('/login', function (req, res) {
+    var options = {successRedirect: '/', failureRedirect: '/login'};
+    passport.authenticate('local', options, function () {
+        res.send(req.user);
+
+    });
+});
+
+
+
+
 
 // Endpoint to get current user
-router.get('/user', function(req, res){
-  res.send(req.user);
+router.get('/user', function (req, res) {
+    res.send("User " + req.user);
 });
 
 
 // Endpoint to logout
-router.get('/logout', function(req, res){
-  req.logout();
-  res.send(null)
+router.get('/logout', function (req, res) {
+    req.logout();
+    res.send(null)
 });
+
+router.get('/all', function (req, res) {
+    var user = req.user;
+    if (req.isAuthenticated() && User.hasRole(user, "admin")) {
+        User.find({}, function (err, result) {
+            if (err) throw err;
+            else res.status(200).send(result).end();
+        })
+    } else {
+        res.status(401).end();
+    }
+});
+
+// noinspection JSUndefinedPropertyAssignment
 module.exports = router;
