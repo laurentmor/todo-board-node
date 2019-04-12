@@ -70,5 +70,5 @@ mongoose.connect(DB, {useNewUrlParser: true}).then(function () {
     passportConfig.setup();
 
 
-    app.listen(port, log.info('Auth API listening on port ' + port));
+    app.listen(port, log.info('Auth API listening on port ' + port + ' in ' + process.env.NODE_ENV));
 });
