@@ -86,8 +86,8 @@ router.get('/logout', function (req, res) {
 });
 
 router.get('/all', function (req, res) {
-    var user = req.user;
-    if (req.isAuthenticated() && User.hasRole(user, "admin")) {
+    var user = req.session.user;
+    if (user && User.hasRole(user, "admin")) {
         User.find({}, function (err, result) {
             if (err) throw err;
             else res.status(200).send(result).end();

@@ -7,7 +7,7 @@ router.get('/', function (req, res) {
     res.status().send("You're not getting anywhere, boyo with this api");
 });
 
-function createValidTodoFromRequest(req, res) {
+function createValidTodoFromRequest(req) {
     var newTodo = new Todo({
         text: req.body.text,
         color: req.body.color
@@ -17,8 +17,9 @@ function createValidTodoFromRequest(req, res) {
     if (creationDate) newTodo.creationDate = creationDate;
     var expirationDate = req.body.expirationDate;
     if (expirationDate) newTodo.creationDate = expirationDate;
-    if (req.isAuthenticated()) {
-        newTodo.userId = req.user._id;
+    var user = req.session.user;
+    if (user) {
+        newTodo.userId = user._id;
         newTodo.public = false;
 
     }
@@ -28,7 +29,7 @@ function createValidTodoFromRequest(req, res) {
 
 router.post('/create', function (req, res) {
 
-    var validTodo = createValidTodoFromRequest(req, res);
+    var validTodo = createValidTodoFromRequest(req);
     log.info(validTodo);
     Todo.create(validTodo, function (error) {
         if (!error) res.status(200).send(validTodo).end();
