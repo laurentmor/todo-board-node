@@ -19,7 +19,9 @@ function createValidUserFromRequest(req) {
             name: req.body.name,
             email: req.body.email,
             username: req.body.username,
-            password: req.body.password
+            password: req.body.password,
+            role: req.body.role
+
         });
 
     } else {
@@ -42,21 +44,38 @@ router.post('/create', function (req, res) {
 
 
 // Endpoint to login
-router.post('/login', function (req, res) {
-    var options = {successRedirect: '/', failureRedirect: '/login'};
-    passport.authenticate('local', options, function () {
-        res.send(req.user);
+router.post('/login',
+    // wrap passport.authenticate call in a middleware function
+    function (req, res, next) {
+        // call passport authentication passing the "local" strategy name and a callback function
+        passport.authenticate('local', function (error, user, info) {
 
+            if (error) {
+                res.status(401).send(error);
+            } else if (!user) {
+                res.status(401).send(info);
+            } else {
+                req.session.user = user;
+
+                next();
+            }
+
+            res.status(401).send(info);
+        })(req, res);
+    },
+
+    // function to call once successfully authenticated
+    function (req, res) {
+        res.status(200).send(req.session.user);
     });
-});
 
 
 
 
 
 // Endpoint to get current user
-router.get('/user', function (req, res) {
-    res.send("User " + req.user);
+router.get('/profile', function (req, res) {
+    res.send(req.session.user);
 });
 
 

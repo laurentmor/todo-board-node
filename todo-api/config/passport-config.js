@@ -5,6 +5,7 @@ module.exports.setup = function () {
     log.info("*** configuring passport ***");
     // Using LocalStrategy with passport
     var LocalStrategy = require('passport-local').Strategy;
+    /** @namespace passport.use */
     passport.use(new LocalStrategy(
         function (username, password, done) {
             User.getUserByUsername(username, function (err, user) {

@@ -13,18 +13,19 @@ var passportConfig = require('./config/passport-config');
 var UserRouter = require('./routes/users');
 var TodoRouter = require('./routes/todos');
 
-const dotEnv = require('dotenv');
-const winstonConfig = require('./config/winston-config');
+var dotEnv = require('dotenv');
+var winstonConfig = require('./config/winston-config');
+var MongoStore = require('connect-mongo')(session);
 dotEnv.config();
 log = winstonConfig.setup();
 
 // Connect to DB
-const DB = process.env.DB;
+
+var DB = process.env.DB;
 
 mongoose.set('useCreateIndex', true);
 mongoose.connect(DB, {useNewUrlParser: true}).then(function () {
 
-    log.error("TEST");
 
     // BodyParser Middleware
     app.use(bodyParser.json({limit: '50mb'}));
@@ -32,14 +33,22 @@ mongoose.connect(DB, {useNewUrlParser: true}).then(function () {
     app.use(cookieParser());
 
 
-// Express Session
-    const sessionOptions = {
+// Express Session depending on ENV
+    var sessionOptions = {
 
         secret: process.env.secret,
         saveUninitialized: true,
         resave: true
 
+
     };
+    //use DB session storage only in production as session won't need to be persisted upon server restart in development
+
+    if (process.env.NODE_ENV == "production") {
+        sessionOptions.store = new MongoStore({
+            mongooseConnection: mongoose.connection
+        });
+    }
     app.use(session(sessionOptions));
 
 // Passport init
@@ -63,7 +72,9 @@ mongoose.connect(DB, {useNewUrlParser: true}).then(function () {
 
 
     });
-    app.use('/users', UserRouter);
+    app.use('/user', UserRouter, function () {
+        log.info("bind: " + UserRouter);
+    });
     app.use("/todos", TodoRouter, function () {
         log.info("bind: " + TodoRouter);
     });

@@ -1,55 +1,87 @@
-var mongoose = require('mongoose');
-var crypt = require('bcryptjs');
+var mongoose = require('mongoose'),
+	crypt = require('bcryptjs');
 
 // User Schema
+/**
+ *
+ * @type {mongoose.Schema}
+ */
 var UserSchema = mongoose.Schema({
 	username: {
 		type: String,
 		index: true,
-		unique: true
+		unique: true,
+		required: true
 	},
 	password: {
-		type: String
+		type: String,
+		required: true
 	},
+
 	email: {
 		type: String
 	},
 	name: {
 		type: String
-    },
-    role: {
-        type: String,
-        default: "user"
-    }
+	},
+	role: {
+		type: String
+
+	}
 });
 
-var User = module.exports = mongoose.model('User', UserSchema);
-
-module.exports.createUser = function(newUser, callback){
+var User = module["exports"] = mongoose.model('User', UserSchema);
+/**
+ *
+ * @param newUser
+ * @param callback
+ */
+module["exports"].createUser = function (newUser, callback) {
+	/** @namespace crypt.genSalt */
 	crypt.genSalt(10, function (err, salt) {
+		/** @namespace crypt.hash */
 		crypt.hash(newUser.password, salt, function (err, hash) {
-	        newUser.password = hash;
-	        newUser.save(callback);
-	    });
+			newUser.password = hash;
+			newUser.save(callback);
+		});
 	});
 };
-
-module.exports.getUserByUsername = function(username, callback){
+/**
+ *
+ * @param username
+ * @param callback
+ */
+module["exports"].getUserByUsername = function (username, callback) {
 	var query = {username: username};
 	User.findOne(query, callback);
 };
-
-module.exports.getUserById = function(id, callback){
+/**
+ *
+ * @param id
+ * @param callback
+ */
+module["exports"].getUserById = function (id, callback) {
 	User.findById(id, callback);
 };
-
-module.exports.comparePassword = function(candidatePassword, hash, callback){
+/**
+ *
+ * @param candidatePassword
+ * @param hash
+ * @param callback
+ */
+module["exports"].comparePassword = function (candidatePassword, hash, callback) {
+	/** @namespace crypt.compare */
 	crypt.compare(candidatePassword, hash, function (err, isMatch) {
     	if(err) throw err;
     	callback(null, isMatch);
 	});
 };
-
-module.exports.hasRole = function (user, role) {
+/**
+ *
+ * @param user
+ * @param role
+ * @returns {boolean}
+ */
+module["exports"].hasRole = function (user, role) {
     return user.role === role;
 };
