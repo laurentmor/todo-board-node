@@ -1,27 +1,32 @@
 #!/env/node
-var express = require('express');
-var app = express();
-var port = process.env.PORT || 3000;
+require('dotenv').config();
+const express = require('express');
+let app = express();
+const port = process.env.PORT || 3000;
+const NODE_ENV = process.env.NODE_ENV;
+console.log(NODE_ENV);
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const mongoose = require('mongoose');
+const passport = require('passport');
+const passportConfig = require('./config/passport-config');
 
-var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
-var session = require('express-session');
-var mongoose = require('mongoose');
-var passport = require('passport');
-var passportConfig = require('./config/passport-config');
+const UserRouter = require('./routes/users');
+const TodoRouter = require('./routes/todos');
 
-var UserRouter = require('./routes/users');
-var TodoRouter = require('./routes/todos');
 
-var dotEnv = require('dotenv');
-var winstonConfig = require('./config/winston-config');
-var MongoStore = require('connect-mongo')(session);
-dotEnv.config();
+const winstonConfig = require('./config/winston-config');
+const MongoStore = require('connect-mongo')(session);
+
 log = winstonConfig.setup();
 
 // Connect to DB
 
-var DB = process.env.DB;
+const DB = process.env.DB;
+app.get("/", function (req, res) {
+    res.status(200).send("Hello World!").end();
+});
 
 mongoose.set('useCreateIndex', true);
 mongoose.connect(DB, {useNewUrlParser: true}).then(function () {
@@ -34,7 +39,7 @@ mongoose.connect(DB, {useNewUrlParser: true}).then(function () {
 
 
 // Express Session depending on ENV
-    var sessionOptions = {
+    const sessionOptions = {
 
         secret: process.env.secret,
         saveUninitialized: true,
@@ -44,7 +49,7 @@ mongoose.connect(DB, {useNewUrlParser: true}).then(function () {
     };
     //use DB session storage only in production as session won't need to be persisted upon server restart in development
 
-    if (process.env.NODE_ENV == "production") {
+    if (process.env.NODE_ENV === "production") {
         sessionOptions.store = new MongoStore({
             mongooseConnection: mongoose.connection
         });
@@ -52,34 +57,36 @@ mongoose.connect(DB, {useNewUrlParser: true}).then(function () {
     app.use(session(sessionOptions));
 
 // Passport init
-    app.use(passport.initialize({userProperty: 'user'}));
+    app.use(passport.initialize({userProperty: 'User.js'}));
     app.use(passport.session(sessionOptions));
 
-    app.get('/data', function (req, res) {
-        var jsf = require('json-schema-faker');
-        var schema = require('./datasets/user-schema');
-        var fs = require('fs');
+    /*app.get('/data', function (req, res) {
+        const jsf = require('json-schema-faker');
+        const schema = require('./datasets/user-schema');
+        const fs = require('fs');
         jsf.option({
             failOnInvalidTypes: false,
             maxItems: 20000
         });
-        var samples = [];
-        for (var i = 0; i < 20000; i++) samples[i] = jsf.generate(schema);
+        const samples = [];
+        for (let i = 0; i < 20000; i++) samples[i] = jsf.generate(schema);
         fs.writeFile('./dataSets/userList.json', JSON.stringify(samples), function (err) {
             if (err) throw err;
             res.send(samples);
         })
 
 
+    });*/
+    app.use('/user', UserRouter, () => {
+        log.info("bind: " + UserRouter.routes);
     });
-    app.use('/user', UserRouter, function () {
-        log.info("bind: " + UserRouter);
-    });
-    app.use("/todos", TodoRouter, function () {
+    app.use("/todo", TodoRouter, () => {
         log.info("bind: " + TodoRouter);
     });
     passportConfig.setup();
 
 
-    app.listen(port, log.info('Auth API listening on port ' + port + ' in ' + process.env.NODE_ENV));
+    app.listen(port, log.info('Auth API listening on port ' + port + ' in ' + NODE_ENV));
 });
+
+module["exports"] = app;
