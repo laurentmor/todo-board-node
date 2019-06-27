@@ -1,60 +1,61 @@
-var express = require('express');
-var router = express.Router();
-var Todo = require('../models/Todo');
+const express = require('express');
+const router = express.Router();
+const Todo = require('../models/Todo');
 
 /* GET home page. */
-router.get('/', function (req, res) {
+router.get('/', (req, res) => {
     res.status().send("You're not getting anywhere, boyo with this api");
 });
 
-function createValidTodoFromRequest(req, res) {
-    var newTodo = new Todo({
+const createValidTodoFromRequest = req => {
+    const newTodo = new Todo({
         text: req.body.text,
         color: req.body.color
 
     });
-    var creationDate = req.body.creationDate;
+    const creationDate = req.body.creationDate;
     if (creationDate) newTodo.creationDate = creationDate;
-    var expirationDate = req.body.expirationDate;
+    const expirationDate = req.body.expirationDate;
     if (expirationDate) newTodo.creationDate = expirationDate;
-    if (req.isAuthenticated()) {
-        newTodo.userId = req.user._id;
+    const user = req.session.user;
+    if (user) {
+        newTodo.userId = user._id;
         newTodo.public = false;
 
     }
     return newTodo;
 
-}
+};
 
-router.post('/create', function (req, res) {
+router.post('/create', (req, res) => {
 
-    var validTodo = createValidTodoFromRequest(req, res);
+    const validTodo = createValidTodoFromRequest(req);
     log.info(validTodo);
-    Todo.create(validTodo, function (error) {
+    Todo.create(validTodo, error => {
         if (!error) res.status(200).send(validTodo).end();
         else res.status(500).send({}).end();
     })
 
 });
 
-router.get('/all', function (req, res) {
-    Todo.getAll({}, function (result) {
+router.get('/all', (req, res) => {
+    Todo.getAll({}, result => {
 
         if (result) res.status(200).send(result).end();
         else res.status(404).end();
     });
 
 });
-router.delete("/delete/:id", function (req, res) {
-    Todo.delete(req.params.id, function () {
+router.delete("/delete/:id", (req, res) => {
+    Todo.delete(req.params.id, () => {
         res.status(200).send("ok").end();
     })
 });
-router.put("/update/:id", function (req, res) {
-    Todo.update(req.params.id, req.body, function () {
+router.put("/update/:id", (req, res) => {
+    Todo.update(req.params.id, req.body, () => {
         res.send("Ok");
     })
 });
 
 
-module.exports = router;
+module["exports"] = router;

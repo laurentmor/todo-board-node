@@ -1,8 +1,8 @@
 module.exports.setup = function () {
-    const winston = require('winston');
-    const logger = winston.createLogger({
-        level: 'info',
-        format: winston.format.json(),
+    var winston = require('winston');
+    var logger = winston.createLogger({
+        level: process.env.logLevel,
+        format: winston.format.colorize(),
         defaultMeta: {service: 'user-service'},
         transports: [
             //

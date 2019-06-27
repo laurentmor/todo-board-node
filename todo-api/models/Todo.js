@@ -1,5 +1,5 @@
 var db = require('mongoose');
-var Todo;
+
 let monthFromNow = function () {
     var future = new Date();
     future.setDate(future.getDate() + 30);
@@ -30,12 +30,9 @@ var TodoSchema = db.Schema({
 
 });
 
-try {
-    Todo = module.exports = db.model('Todo');
 
-} catch (error) {
-    Todo = module.exports = db.model('Todo', TodoSchema);
-}
+var Todo = module.exports = db.model('Todo', TodoSchema);
+
 
 module.exports.create = function (newTodo, callback) {
     newTodo.save(callback);

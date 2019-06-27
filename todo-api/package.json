@@ -4,8 +4,8 @@
   "description": "An api to manage todos with authentication support",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node-dev index"
+    "test": "jest --watchAll",
+    "start": "node-dev index.js"
   },
   "repository": "https://github.com/laurentmor/todo-board-node.git",
   "author": "Laurent Morissette",
@@ -13,6 +13,7 @@
   "dependencies": {
     "bcryptjs": "*",
     "body-parser": "~1.18.3",
+    "connect-mongo": "^3.0.0",
     "cookie-parser": "~1.4.3",
     "dotenv": "^7.0.0",
     "express": "~4.16.4",
@@ -23,8 +24,16 @@
     "winston": "^3.2.1"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
     "gulp": "^4.0.0",
+    "gulp-replace": "^1.0.0",
+    "jest": "^24.8.0",
     "json-schema-faker": "^0.5.0-rc16",
-    "gulp-replace": "^1.0.0"
+    "mocha": "^6.1.4",
+    "superagent": "^5.1.0",
+    "supertest": "^4.0.2"
   }
 }

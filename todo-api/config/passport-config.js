@@ -1,19 +1,23 @@
-var passport = require('passport');
-var User = require('../models/user');
-module.exports.setup = function () {
+const passport = require('passport');
+const User = require('../models/User');
+module["exports"].setup = () => {
 
     log.info("*** configuring passport ***");
-    // Using LocalStrategy with passport
-    var LocalStrategy = require('passport-local').Strategy;
-    passport.use(new LocalStrategy(
-        function (username, password, done) {
-            User.getUserByUsername(username, function (err, user) {
+
+
+    //region  Using LocalStrategy with passport
+
+    const LocalStrategy = require('passport-local').Strategy;
+
+    passport.use('local', new LocalStrategy({usernameField: 'username', passwordField: 'password'},
+        (username, password, done) => {
+            User.getUserByUsername(username, (err, user) => {
                 if (err) throw err;
                 if (!user) {
                     return done(null, false, {message: 'Unknown User'});
                 }
 
-                User.comparePassword(password, user.password, function (err, isMatch) {
+                User.comparePassword(password, user.password, (err, isMatch) => {
                     if (err) throw err;
                     if (isMatch) {
                         return done(null, user);
@@ -24,13 +28,17 @@ module.exports.setup = function () {
             });
         }
     ));
+    //endregion
+    //region using google
 
-    passport.serializeUser(function (user, done) {
+    //endregion
+
+    passport.serializeUser((user, done) => {
         done(null, user.id);
     });
 
-    passport.deserializeUser(function (id, done) {
-        User.getUserById(id, function (err, user) {
+    passport.deserializeUser((id, done) => {
+        User.getUserById(id, (err, user) => {
             done(err, user);
         });
     });
