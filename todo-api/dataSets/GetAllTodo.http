@@ -4,31 +4,11 @@
 # * 'gtrp' and 'gtr' create a GET request with or without query parameters;
 # * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
 # * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
-POST http://localhost:3000/todos/create
+GET http://localhost:4267/
 Accept: application/json
-{
-  {
-    "text":"Hello56",
-     "color":"red",
-     "expirationDate":"32"
-  }
-
-
-
-}
+###
+GET http://localhost:4267/user
 
 ###
-GET http://localhost:3000/todos/all
-Accept: application/json
 
-
-###
-PUT http://localhost:3000/todos/update/5caa856f5acbdd066a6d0342
-{
-
-   "text":"updated text"
-
-}
-
-
-###
+##

@@ -1,45 +1,44 @@
 {
-  "name": "auth-sys",
-  "version": "1.0.0",
-  "description": "An api to manage todos with authentication support",
-  "main": "index.js",
+  "name": "auth-api",
+  "version": "0.0.0",
+  "private": true,
+  "author": {
+    "name": "Laurent"
+  },
+  "dist": {
+    "tarball": "auth-api"
+  },
   "scripts": {
     "test": "jest --watchAll",
     "build": "babel --presets @babel/env -d lib/ src --watch --copy-files",
     "start": "node-dev lib/index.js"
   },
-  "repository": "https://github.com/laurentmor/todo-board-node.git",
-  "author": "Laurent Morissette",
-  "license": "MIT",
   "dependencies": {
     "@babel/runtime": "^7.7.4",
     "babel-plugin-dotenv-import": "^2.0.0",
     "babel-register": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "bcryptjs": "*",
     "body-parser": "~1.18.3",
+    "connect-ensure-login": "^0.1.1",
+    "connect-mongo": "^3.0.0",
     "cookie-parser": "~1.4.3",
+    "debug": "latest",
     "dotenv": "^7.0.0",
+    "env": "0.0.2",
     "express": "~4.16.4",
     "express-session": "^1.15.6",
     "mongoose": "~5.4.22",
-    "winston": "^3.2.1",
-    "winston-express-request-logger": "^1.0.3",
-    "winston-mail": "^2.0.0"
+    "passport": "~0.4.0",
+    "passport-google-oauth2": "^0.2.0",
+    "passport-local": "~1.0.0",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.4",
     "@babel/core": "^7.7.4",
     "@babel/plugin-proposal-class-properties": "^7.7.4",
     "@babel/plugin-transform-runtime": "^7.7.4",
-    "@babel/preset-env": "^7.7.4",
-    "braces": "^3.0.2",
-    "chai": "^4.2.0",
-    "chai-http": "^4.2.1",
-    "gulp": "^4.0.0",
-    "gulp-replace": "^1.0.0",
-    "jest": "^24.8.0",
-    "json-schema-faker": "^0.5.0-rc16",
-    "mocha": "^6.1.4",
-    "superagent": "^5.1.0",
-    "supertest": "^4.0.2"
+    "@babel/preset-env": "^7.7.4"
   }
 }

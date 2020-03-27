@@ -1,6 +1,6 @@
-const express = require('express');
+import  express from 'express';
 const router = express.Router();
-const Todo = require('../models/Todo');
+import Todo from "../models/Todo";
 
 /* GET home page. */
 router.get('/', (req, res) => {
@@ -58,4 +58,4 @@ router.put("/update/:id", (req, res) => {
 });
 
 
-module["exports"] = router;
+export default router;

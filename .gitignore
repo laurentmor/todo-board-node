@@ -13,3 +13,9 @@ todo-api/public/javascripts/
 /todo-api/combined.log
 /todo-api/.env
 /todo-api/error.log
+/auth-api/.env
+*.log
+/todo-api/.nyc_output/
+/todo-api/dataSets/
+/todo-api/lib/
+/auth-api/lib/

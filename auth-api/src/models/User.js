@@ -1,12 +1,12 @@
-var mongoose = require('mongoose'),
-	crypt = require('bcryptjs');
+import mongoose from "mongoose";
 
+import crypt from "bcryptjs";
 // User Schema
 /**
  *
  * @type {mongoose.Schema}
  */
-var UserSchema = mongoose.Schema({
+const UserSchema = mongoose.Schema({
 	username: {
 		type: String,
 		index: true,
@@ -17,6 +17,7 @@ var UserSchema = mongoose.Schema({
 		type: String,
 		required: true
 	},
+
 
 	email: {
 		type: String
@@ -30,17 +31,17 @@ var UserSchema = mongoose.Schema({
 	}
 });
 
-var User = module["exports"] = mongoose.model('User', UserSchema);
+const User = module["exports"] = mongoose.model('User', UserSchema,false);
 /**
  *
  * @param newUser
  * @param callback
  */
-module["exports"].createUser = function (newUser, callback) {
+module["exports"].createUser = (newUser, callback) => {
 	/** @namespace crypt.genSalt */
-	crypt.genSalt(10, function (err, salt) {
+	crypt.genSalt(10, (err, salt) => {
 		/** @namespace crypt.hash */
-		crypt.hash(newUser.password, salt, function (err, hash) {
+		crypt.hash(newUser.password, salt, (err, hash) => {
 			newUser.password = hash;
 			newUser.save(callback);
 		});
@@ -51,8 +52,8 @@ module["exports"].createUser = function (newUser, callback) {
  * @param username
  * @param callback
  */
-module["exports"].getUserByUsername = function (username, callback) {
-	var query = {username: username};
+module["exports"].getUserByUsername = (username, callback) => {
+	const query = {username: username};
 	User.findOne(query, callback);
 };
 /**
@@ -60,7 +61,7 @@ module["exports"].getUserByUsername = function (username, callback) {
  * @param id
  * @param callback
  */
-module["exports"].getUserById = function (id, callback) {
+module.exports.getUserById = (id, callback) => {
 	User.findById(id, callback);
 };
 /**
@@ -69,11 +70,11 @@ module["exports"].getUserById = function (id, callback) {
  * @param hash
  * @param callback
  */
-module["exports"].comparePassword = function (candidatePassword, hash, callback) {
+module["exports"].comparePassword = (candidatePassword, hash, callback) => {
 	/** @namespace crypt.compare */
-	crypt.compare(candidatePassword, hash, function (err, isMatch) {
-    	if(err) throw err;
-    	callback(null, isMatch);
+	crypt.compare(candidatePassword, hash, (err, isMatch) => {
+		if(err) throw err;
+		callback(null, isMatch);
 	});
 };
 /**
@@ -82,6 +83,5 @@ module["exports"].comparePassword = function (candidatePassword, hash, callback)
  * @param role
  * @returns {boolean}
  */
-module["exports"].hasRole = function (user, role) {
-    return user.role === role;
-};
+module["exports"].hasRole = (user, role) => user.role === role;
+
