@@ -1,7 +1,5 @@
 import winston from 'winston';
 
-import  Mail from 'winston-mail' ;
-import winstonExRegLogger from "winston-express-request-logger";
 
 let alignColorsAndTime = winston.format.combine(
     winston.format.colorize({
