@@ -81,11 +81,12 @@ const localAuth = (req, res, next) => {
         req.logIn(user, function(err) {
             if (err) { return next(err); }
             logger.info(req.user.username);
-            return res.redirect('/auth/v1/profile');
+            res.send(user).end();
+            //return res.redirect('/auth/v1/profile');
         });
     })(req, res, next);
 
-
+    //res.sendBackwards()
 };
 
 const googleAuth = (req, res, next) => {
