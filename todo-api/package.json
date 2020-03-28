@@ -13,6 +13,7 @@
   "license": "MIT",
   "dependencies": {
     "@babel/runtime": "^7.9.2",
+    "@babel/core": "^7.9.0",
     "babel-plugin-dotenv-import": "^2.0.0",
     "babel-register": "^7.0.0-beta.3",
     "body-parser": "~1.18.3",
