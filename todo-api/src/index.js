@@ -30,7 +30,7 @@ app.get("/", function (req, res) {
 
 async function connectToDB () {
     mongoose.set('useCreateIndex', true);
-    const connectPromise= mongoose.connect(DB, {useNewUrlParser: true});
+    const connectPromise= mongoose.connect(DB, {useNewUrlParser: true, useUnifiedTopology: true});
     await connectPromise.then(()=>{
 
         // BodyParser Middleware
