@@ -2,9 +2,6 @@
 /todo-board-node.iml
 /.idea/
 node_modules/
-todo-api/package-lock.json
-
-/package-lock.json
 
 todo-api/public/images/
 todo-api/public/javascripts/
