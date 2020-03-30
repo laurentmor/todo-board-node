@@ -7,8 +7,9 @@
     "test": "jest --watchAll",
     "build": "babel --presets @babel/env -d lib/ src --copy-files",
     "watch": "babel --presets @babel/env -d lib/ src --watch --copy-files",
-    "start": "node-dev lib/index.js",
-    "check": "node-dev lib/index.js -c"
+    "start-dev": "node-dev lib/index.js",
+    "start": "node lib/index.js",
+    "check": "node lib/index.js -c"
   },
   "repository": "https://github.com/laurentmor/todo-board-node.git",
   "author": "Laurent Morissette",
