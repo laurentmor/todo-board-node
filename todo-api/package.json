@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --watchAll",
-    "build": "babel --presets @babel/env -d lib/ src --watch --copy-files",
+    "build": "babel --presets @babel/env -d lib/ src --copy-files",
+    "watch": "babel --presets @babel/env -d lib/ src --watch --copy-files",
     "start": "node-dev lib/index.js"
   },
   "repository": "https://github.com/laurentmor/todo-board-node.git",

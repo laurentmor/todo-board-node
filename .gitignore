@@ -8,9 +8,9 @@ todo-api/public/javascripts/
 /todo-api/.idea/
 
 /todo-api/combined.log
-/todo-api/.env
+#/todo-api/.env
 /todo-api/error.log
-/auth-api/.env
+#/auth-api/.env
 *.log
 /todo-api/.nyc_output/
 /todo-api/dataSets/

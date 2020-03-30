@@ -23,7 +23,7 @@ jobs:
       - name: Install dependencies
         working-directory: ${{ github.workspace }}/todo-api
         run: |
-          npm install
+          npm ci
 
       - name: Build
         working-directory: ${{ github.workspace }}/todo-api
