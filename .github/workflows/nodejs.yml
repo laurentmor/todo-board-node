@@ -10,6 +10,12 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    services:
+      mongodb:
+        image: mongo
+        ports:
+          - 27017:27017
+
     steps:
       - uses: actions/checkout@v2
       - name: Set Node.js 10.x
@@ -32,11 +38,6 @@ jobs:
           npm run build
 
       - name: perform API sanity check
-        services:
-          mongodb:
-            image: mongo:3.4.23
-            ports:
-              - 27017:27017
         working-directory: ${{ github.workspace }}/todo-api
         run: |
           cd lib && ls -la
