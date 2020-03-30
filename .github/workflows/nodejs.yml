@@ -17,13 +17,13 @@ jobs:
           node-version: 10.x
 
       - name: Build site assets
-        working-directory: ${{ github.workspace }}
+        working-directory: ${{ github.workspace }}/todo-api
         run: ls -la
 
       - name: Install dependencies
         working-directory: ${{ github.workspace }}/todo-api
         run: |
-          npm ci
+          npm install
 
       - name: Build
         working-directory: ${{ github.workspace }}/todo-api
