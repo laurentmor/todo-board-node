@@ -33,6 +33,7 @@ async function connectToDB () {
     mongoose.set('useCreateIndex', true);
     const connectPromise= mongoose.connect(DB, {useNewUrlParser: true, useUnifiedTopology: true});
     await connectPromise.then(()=>{
+        logger.info("Connected to MongoDB (OK): " + DB);
 
         // BodyParser Middleware
         app.use(bodyParser.json({limit: '50mb'}));
