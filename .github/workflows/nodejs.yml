@@ -44,24 +44,24 @@ jobs:
           cd lib && ls -la
           npm run check
 
-        #Jobs for auth-api
-        - name: check that every files were checked out
-          working-directory: ${{ github.workspace }}/auth-api
-          run: ls -la
+      #Jobs for auth-api
+      - name: check that every files were checked out
+        working-directory: ${{ github.workspace }}/auth-api
+        run: ls -la
 
-        - name: Install dependencies
-          working-directory: ${{ github.workspace }}/auth-api
-          run: |
-            npm ci
+      - name: Install dependencies
+        working-directory: ${{ github.workspace }}/auth-api
+        run: |
+          npm ci
 
-        - name: Build source with babel support
-          working-directory: ${{ github.workspace }}/auth-api
-          run: |
-            npm run build
+      - name: Build source with babel support
+        working-directory: ${{ github.workspace }}/auth-api
+        run: |
+          npm run build
 
-        - name: perform API sanity check
-          working-directory: ${{ github.workspace }}/auth-api
-          run: |
-            cd lib && ls -la
-            npm run check
+      - name: perform API sanity check
+        working-directory: ${{ github.workspace }}/auth-api
+        run: |
+          cd lib && ls -la
+          npm run check
 #source: https://github.community/t5/GitHub-Actions/Github-actions-working-directory-incorrectly-documented/td-p/29201
