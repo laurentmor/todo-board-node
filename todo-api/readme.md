@@ -14,7 +14,7 @@ node index
 Routes:
 
 POST /register : Register a user <br>
-```javascript
+```json
 {
 	"name": "joe",
 	"email": "joe@example.io",
@@ -25,7 +25,7 @@ POST /register : Register a user <br>
 ```
 
 POST /login <br>
-```javascript
+```json
 {
 	"username": "joe123",
 	"password": "mypass123"

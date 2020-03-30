@@ -1,6 +1,7 @@
 #!/env/node
 
-import {PORT,NODE_ENV,DB,SECRET} from "@env";
+// noinspection NpmUsedModulesInstalled
+import {PORT,NODE_ENV,DB,SECRET} from '@env';
 
 import express from "express";
 
@@ -52,9 +53,10 @@ async function connectToDB () {
         //use DB session storage only in production as session won't need to be persisted upon server restart in development
 
         if (NODE_ENV === "production") {
-            sessionOptions.store = new MongoStore({
+
+            /*sessionOptions.store = new MongoStore({
                 mongooseConnection: mongoose.connection
-            });
+            }).set(mongoose.connection);*/
         }
         app.use(session(sessionOptions));
 
@@ -87,3 +89,4 @@ async function connectToDB () {
 
 
 
+//export default app;

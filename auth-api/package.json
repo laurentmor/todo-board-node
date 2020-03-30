@@ -14,31 +14,32 @@
     "start": "node-dev lib/index.js"
   },
   "dependencies": {
-    "@babel/runtime": "^7.7.4",
+    "@babel/runtime": "^7.9.2",
     "babel-plugin-dotenv-import": "^2.0.0",
-    "babel-register": "^6.26.0",
     "babel-preset-env": "^1.7.0",
-    "bcryptjs": "*",
-    "body-parser": "~1.18.3",
+    "babel-register": "^6.26.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "~1.19.0",
     "connect-ensure-login": "^0.1.1",
-    "connect-mongo": "^3.0.0",
-    "cookie-parser": "~1.4.3",
-    "debug": "latest",
+    "connect-mongo": "^3.2.0",
+    "cookie-parser": "^1.4.5",
+    "debug": "^4.1.1",
     "dotenv": "^7.0.0",
     "env": "0.0.2",
-    "express": "~4.16.4",
-    "express-session": "^1.15.6",
+    "express": "~4.17.1",
+    "express-session": "^1.17.0",
     "mongoose": "~5.7.5",
     "passport": "~0.4.0",
     "passport-google-oauth2": "^0.2.0",
     "passport-local": "~1.0.0",
+    "minimist": "^1.2.5",
     "winston": "^3.2.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.7.4",
-    "@babel/core": "^7.7.4",
-    "@babel/plugin-proposal-class-properties": "^7.7.4",
-    "@babel/plugin-transform-runtime": "^7.7.4",
-    "@babel/preset-env": "^7.7.4"
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.9.0",
+    "@babel/preset-env": "^7.9.0"
   }
 }

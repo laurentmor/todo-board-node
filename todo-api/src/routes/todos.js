@@ -31,9 +31,14 @@ router.post('/create', (req, res) => {
 
     const validTodo = createValidTodoFromRequest(req);
     log.info(validTodo);
+    // noinspection JSUnusedLocalSymbols
     Todo.create(validTodo, error => {
+
+
+    }).then(() => {
         if (!error) res.status(200).send(validTodo).end();
-        else res.status(500).send({}).end();
+        else res.status(500).send(error).end();
+
     })
 
 });
