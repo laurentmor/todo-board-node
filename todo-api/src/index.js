@@ -1,6 +1,7 @@
 #!/env/node
 
-import {PORT,NODE_ENV,DB,SECRET} from "@env";
+// noinspection NpmUsedModulesInstalled
+import {PORT,NODE_ENV,DB,SECRET} from '@env';
 
 import express from "express";
 
@@ -32,6 +33,7 @@ async function connectToDB () {
     mongoose.set('useCreateIndex', true);
     const connectPromise= mongoose.connect(DB, {useNewUrlParser: true, useUnifiedTopology: true});
     await connectPromise.then(()=>{
+        logger.info("Connected to MongoDB (OK): " + DB);
 
         // BodyParser Middleware
         app.use(bodyParser.json({limit: '50mb'}));
@@ -52,9 +54,10 @@ async function connectToDB () {
         //use DB session storage only in production as session won't need to be persisted upon server restart in development
 
         if (NODE_ENV === "production") {
-            sessionOptions.store = new MongoStore({
+
+            /*sessionOptions.store = new MongoStore({
                 mongooseConnection: mongoose.connection
-            });
+            }).set(mongoose.connection);*/
         }
         app.use(session(sessionOptions));
 
@@ -83,7 +86,11 @@ async function connectToDB () {
 }
  connectToDB().then(function () {
     app.listen(PORT, logger.info('Todo API listening on port ' +PORT+ ' in '+ NODE_ENV  ));
+    if(process.argv[2]==="-c"){
+        process.exit(0);
+    }
 }).catch((e)=>{logger.error("Server won`t start!" + e)});
 
 
 
+//export default app;

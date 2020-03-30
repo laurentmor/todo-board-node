@@ -1,12 +1,15 @@
 {
-  "name": "auth-sys",
+  "name": "todo-api",
   "version": "1.0.0",
   "description": "An api to manage todos with authentication support",
   "main": "index.js",
   "scripts": {
     "test": "jest --watchAll",
-    "build": "babel --presets @babel/env -d lib/ src --watch --copy-files",
-    "start": "node-dev lib/index.js"
+    "build": "babel --presets @babel/env -d lib/ src --copy-files",
+    "watch": "babel --presets @babel/env -d lib/ src --watch --copy-files",
+    "start-dev": "node-dev lib/index.js",
+    "start": "node lib/index.js",
+    "check": "node lib/index.js -c"
   },
   "repository": "https://github.com/laurentmor/todo-board-node.git",
   "author": "Laurent Morissette",

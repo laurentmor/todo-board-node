@@ -1,11 +1,11 @@
-var db = require('mongoose');
+import db from "mongoose";
 
 let monthFromNow = function () {
-    var future = new Date();
+    const future = new Date();
     future.setDate(future.getDate() + 30);
     return future;
 };
-var TodoSchema = db.Schema({
+const TodoSchema = new db.Schema({
     text: {
         type: String
     },
@@ -31,7 +31,7 @@ var TodoSchema = db.Schema({
 });
 
 
-var Todo = module.exports = db.model('Todo', TodoSchema);
+let Todo = module.exports = db.model('Todo', TodoSchema);
 
 
 module.exports.create = function (newTodo, callback) {
@@ -47,8 +47,8 @@ module.exports.getAll = function (filter, callback) {
 };
 
 module.exports.update = function (id, modifications, callback) {
-    var conditions = {_id: id};
-    var options = {new: true};
+    let conditions = {_id: id};
+    let options = {new: true};
 
 
     Todo.findOneAndUpdate(conditions, modifications, options, function (err, updatedTodo) {

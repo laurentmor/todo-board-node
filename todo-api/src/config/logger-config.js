@@ -29,6 +29,7 @@ let format = winston.format.combine(
     )
 );
 
+// noinspection JSCheckFunctionSignatures
 const logger = winston.createLogger({
     transports: [
         new (winston.transports.Console)({
