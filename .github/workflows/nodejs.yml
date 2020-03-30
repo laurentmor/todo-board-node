@@ -7,6 +7,13 @@ on:
     branches: [ master ]
 
 jobs:
+  services:
+    #DB service to support
+    mongodb:
+      image: mongo:3.4.23
+      ports:
+        - 27017:27017
+
   build:
     runs-on: ubuntu-latest
     steps:
@@ -16,7 +23,7 @@ jobs:
         with:
           node-version: 10.x
 
-      - name: Build site assets
+      - name: check that every files were checked out
         working-directory: ${{ github.workspace }}/todo-api
         run: ls -la
 
@@ -25,12 +32,12 @@ jobs:
         run: |
           npm ci
 
-      - name: Build
+      - name: Build source with babel support
         working-directory: ${{ github.workspace }}/todo-api
         run: |
           npm run build
 
-      - name: Deploy
+      - name: perform API sanity check
         working-directory: ${{ github.workspace }}/todo-api
         run: |
           cd lib && ls -la
