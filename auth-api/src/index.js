@@ -81,9 +81,11 @@ async function connectToDB () {
 
     //await Promise.all(connectPromise);
 }
-connectToDB().then(()=>{
-    app.listen(PORT);
-    logger.info('Auth API listening on port ' + PORT + ' in ' + NODE_ENV)
+connectToDB().then(function () {
+    app.listen(PORT, logger.info('Auth API listening on port ' +PORT+ ' in '+ NODE_ENV  ));
+    if(process.argv[2]==="-c"){
+        process.exit(0);
+    }
 }).catch((e)=>{logger.error("Server won`t start!" + e)});
 
 /*

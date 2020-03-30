@@ -10,8 +10,11 @@
   },
   "scripts": {
     "test": "jest --watchAll",
-    "build": "babel --presets @babel/env -d lib/ src --watch --copy-files",
-    "start": "node-dev lib/index.js"
+    "build": "babel --presets @babel/env -d lib/ src --copy-files",
+    "watch": "babel --presets @babel/env -d lib/ src --watch --copy-files",
+    "start-dev": "node-dev lib/index.js",
+    "start": "node lib/index.js",
+    "check": "node lib/index.js -c"
   },
   "dependencies": {
     "@babel/runtime": "^7.9.2",
