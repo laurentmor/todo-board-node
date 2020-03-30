@@ -85,6 +85,9 @@ async function connectToDB () {
 }
  connectToDB().then(function () {
     app.listen(PORT, logger.info('Todo API listening on port ' +PORT+ ' in '+ NODE_ENV  ));
+    if(process.argv[2]==="-c"){
+        process.exit(0);
+    }
 }).catch((e)=>{logger.error("Server won`t start!" + e)});
 
 

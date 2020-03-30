@@ -34,4 +34,5 @@ jobs:
         working-directory: ${{ github.workspace }}/todo-api
         run: |
           cd lib && ls -la
+          npm run check
 #source: https://github.community/t5/GitHub-Actions/Github-actions-working-directory-incorrectly-documented/td-p/29201
