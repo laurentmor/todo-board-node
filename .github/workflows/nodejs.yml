@@ -72,8 +72,8 @@ jobs:
           npm run check
 
       - name: unit tests
-          working-directory: ${{ github.workspace }}/auth-api
-          run: |
-            uptime
+        working-directory: ${{ github.workspace }}/auth-api
+        run: |
+          uptime
 
 #source: https://github.community/t5/GitHub-Actions/Github-actions-working-directory-incorrectly-documented/td-p/29201
