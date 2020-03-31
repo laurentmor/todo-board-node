@@ -44,6 +44,12 @@ jobs:
           cd lib && ls -la
           npm run check
 
+      - name: unit tests
+        working-directory: ${{ github.workspace }}/todo-api
+        run: |
+          uptime
+           sudo shutdown -r now
+
       #Jobs for auth-api
       - name: check that every files were checked out
         working-directory: ${{ github.workspace }}/auth-api
