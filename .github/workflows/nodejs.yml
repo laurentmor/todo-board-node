@@ -1,4 +1,4 @@
-name: Deploy Gatsby Website
+name: CI workflow for both todo and auth API
 
 on:
   push:
@@ -48,7 +48,7 @@ jobs:
         working-directory: ${{ github.workspace }}/todo-api
         run: |
           uptime
-           sudo shutdown -r now
+
 
       #Jobs for auth-api
       - name: check that every files were checked out
@@ -70,4 +70,10 @@ jobs:
         run: |
           cd lib && ls -la
           npm run check
+
+      - name: unit tests
+          working-directory: ${{ github.workspace }}/auth-api
+          run: |
+            uptime
+
 #source: https://github.community/t5/GitHub-Actions/Github-actions-working-directory-incorrectly-documented/td-p/29201
