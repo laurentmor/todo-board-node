@@ -2,7 +2,7 @@
 
 // noinspection NpmUsedModulesInstalled
 import {PORT,NODE_ENV,DB,SECRET} from '@env';
-
+import http from 'http';
 import express from "express";
 
 import bodyParser from "body-parser";
@@ -92,5 +92,5 @@ async function connectToDB () {
 }).catch((e)=>{logger.error("Server won`t start!" + e)});
 
 
-
+http.createServer();
 //export default app;
