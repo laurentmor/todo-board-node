@@ -1,4 +1,4 @@
-name: Deploy Gatsby Website
+name: CI workflow for both todo and auth API
 
 on:
   push:
@@ -10,6 +10,11 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [10.x, 12.x]
+
+
     services:
       mongodb:
         image: mongo
@@ -18,10 +23,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Set Node.js 10.x
+      - name: Set Node ${{ matrix.node-version }}
         uses: actions/setup-node@master
         with:
-          node-version: 10.x
+          node-version: ${{ matrix.node-version }}
 
       # Jobs for todo-api
       - name: check that every files were checked out
@@ -44,6 +49,12 @@ jobs:
           cd lib && ls -la
           npm run check
 
+      - name: unit tests
+        working-directory: ${{ github.workspace }}/todo-api
+        run: |
+          uptime
+
+
       #Jobs for auth-api
       - name: check that every files were checked out
         working-directory: ${{ github.workspace }}/auth-api
@@ -64,4 +75,10 @@ jobs:
         run: |
           cd lib && ls -la
           npm run check
+
+      - name: unit tests
+        working-directory: ${{ github.workspace }}/auth-api
+        run: |
+          uptime
+
 #source: https://github.community/t5/GitHub-Actions/Github-actions-working-directory-incorrectly-documented/td-p/29201
