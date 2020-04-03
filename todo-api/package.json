@@ -19,6 +19,7 @@
     "@babel/runtime": "^7.9.2",
     "babel-plugin-dotenv-import": "^2.0.0",
     "babel-register": "^7.0.0-beta.3",
+    "@babel/cli": "^7.8.4",
     "body-parser": "~1.19.0",
     "connect-mongo": "^3.2.0",
     "cookie-parser": "^1.4.5",
