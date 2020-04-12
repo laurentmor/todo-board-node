@@ -1,13 +1,15 @@
-var db = require('mongoose');
+import db from "mongoose";
+import logger from "../config/logger-config";
 
-let monthFromNow = function () {
-    var future = new Date();
+let monthFromNow = () => {
+    let future = new Date();
     future.setDate(future.getDate() + 30);
     return future;
 };
-var TodoSchema = db.Schema({
+const TodoSchema = new db.Schema({
     text: {
-        type: String
+        type: String,
+        required: true
     },
     color: {
         type: String
@@ -31,10 +33,11 @@ var TodoSchema = db.Schema({
 });
 
 
-var Todo = module.exports = db.model('Todo', TodoSchema);
+const Todo = module.exports = db.model('Todo', TodoSchema);
 
 
 module.exports.create = function (newTodo, callback) {
+    logger.info(newTodo);
     newTodo.save(callback);
 
 
@@ -56,13 +59,15 @@ module.exports.update = function (id, modifications, callback) {
     })
 
 };
-module.exports.delete = function (id, callback) {
+const deleteOne = (id, callback) => {
     Todo.findOneAndDelete({_id: id}, function (err, deleted) {
         callback(deleted);
     })
 
 };
-
+export {
+    deleteOne
+}
 
 
 
