@@ -63,7 +63,7 @@ jobs:
       - name: Install dependencies
         working-directory: ${{ github.workspace }}/auth-api
         run: |
-          npm install && npm ci
+           npm ci
 
       - name: Build source with babel support
         working-directory: ${{ github.workspace }}/auth-api
