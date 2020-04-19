@@ -41,7 +41,7 @@ jobs:
       - name: Build source with babel support
         working-directory: ${{ github.workspace }}/todo-api
         run: |
-          npm run build
+          npm run dist
 
       - name: perform API sanity check
         working-directory: ${{ github.workspace }}/todo-api
@@ -68,7 +68,7 @@ jobs:
       - name: Build source with babel support
         working-directory: ${{ github.workspace }}/auth-api
         run: |
-          npm run build
+          npm run dist
 
       - name: perform API sanity check
         working-directory: ${{ github.workspace }}/auth-api
