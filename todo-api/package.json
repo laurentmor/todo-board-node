@@ -4,7 +4,6 @@
   "description": "An api to manage todos with authentication support",
   "main": "index.js",
   "scripts": {
-
     "test": "mocha --timeout 15000 --require @babel/polyfill --require @babel/register --recursive --exit",
     "dist": "babel --presets @babel/env -d lib/ src  --copy-files",
     "watch": "babel --presets @babel/env -d lib/ src --watch --copy-files",
