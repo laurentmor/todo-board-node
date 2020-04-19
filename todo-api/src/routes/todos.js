@@ -50,13 +50,27 @@ const createValidTodoFromRequest = (req, res) => {
 
 
 };
+
+const saveSuccess = (data) => {
+
+    logger.info("data saved ");
+    data.message = "saved";
+    logger.info(data.response);
+};
+const saveFailure = (data) => {
+    data.mesage = "not saved";
+    logger.info(data);
+
+};
 /**
  *
  * @param data
  */
 const createSuccess = (data) => {
     logger.info("Promise resolved " + data.todo);
-    data.response.status(200).send("Ok").end();
+    Todo.saveNew(data).then(saveSuccess, saveFailure);
+
+
 };
 
 /**
@@ -71,10 +85,11 @@ router.post('/create', (req, res) => {
 
 
     const promise = createValidTodoFromRequest(req, res);
+    logger.info(promise.todo);
     promise.then(createSuccess, createFailure);
 
 
-    //res.end();
+    res.end();
 
     //logger.info(validTodo);
 

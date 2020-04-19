@@ -27,7 +27,10 @@ app.get("/", function (req, res) {
 });
 
 
-
+/**
+ *
+ * @returns {Promise<void>}
+ */
 async function connectToDB () {
     logger.info('Connected to DB');
     mongoose.set('useCreateIndex', true);

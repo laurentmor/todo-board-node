@@ -1,5 +1,4 @@
 import db from "mongoose";
-import logger from "../config/logger-config";
 
 let monthFromNow = () => {
     let future = new Date();
@@ -36,9 +35,18 @@ const TodoSchema = new db.Schema({
 const Todo = module.exports = db.model('Todo', TodoSchema);
 
 
-module.exports.create = function (newTodo, callback) {
-    logger.info(newTodo);
-    newTodo.save(callback);
+module.exports.saveNew = function (data) {
+    return new Promise((resolve, reject) => {
+        data.todo.save((error, savedData) => {
+            if (error) {
+                reject("Error during save" + error);
+                data.error = error;
+            } else {
+                data.response.status(203).end();
+                resolve(savedData);
+            }
+        });
+    });
 
 
 };
