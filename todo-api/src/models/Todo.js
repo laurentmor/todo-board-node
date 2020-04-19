@@ -1,5 +1,6 @@
 import db from "mongoose";
 
+
 let monthFromNow = () => {
     let future = new Date();
     future.setDate(future.getDate() + 30);
@@ -32,6 +33,7 @@ const TodoSchema = new db.Schema({
 });
 
 
+
 const Todo = module.exports = db.model('Todo', TodoSchema);
 
 
@@ -58,8 +60,8 @@ module.exports.getAll = function (filter, callback) {
 };
 
 module.exports.update = function (id, modifications, callback) {
-    var conditions = {_id: id};
-    var options = {new: true};
+    let conditions = {_id: id};
+    let options = {new: true};
 
 
     Todo.findOneAndUpdate(conditions, modifications, options, function (err, updatedTodo) {
