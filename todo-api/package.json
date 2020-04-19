@@ -45,8 +45,6 @@
     "gulp": "^4.0.2",
     "gulp-replace": "^1.0.0",
     "mocha": "^7.1.1",
-    "really-need": "^1.9.2",
-
-
+    "really-need": "^1.9.2"
   }
 }
