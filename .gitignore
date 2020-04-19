@@ -2,13 +2,15 @@
 /todo-board-node.iml
 /.idea/
 node_modules/
+
 todo-api/public/images/
 todo-api/public/javascripts/
 /todo-api/.idea/
 
 /todo-api/combined.log
-
+#/todo-api/.env
 /todo-api/error.log
+#/auth-api/.env
 *.log
 /todo-api/.nyc_output/
 /todo-api/dataSets/

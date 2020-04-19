@@ -132,7 +132,7 @@ router.get('/login/:strategy',
 
 
 // Endpoint to get current user
-router.get('/profile',ensureLoggedIn(), (req, res) => {
+router.get('/profile',ensureLoggedIn('/login'), (req, res) => {
     logger.info('auth succeeded');
     res.send(req.cookies);
 });
