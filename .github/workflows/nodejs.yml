@@ -36,7 +36,7 @@ jobs:
       - name: Install dependencies
         working-directory: ${{ github.workspace }}/todo-api
         run: |
-          npm ci
+          npm install
 
       - name: Build source with babel support
         working-directory: ${{ github.workspace }}/todo-api
@@ -63,7 +63,7 @@ jobs:
       - name: Install dependencies
         working-directory: ${{ github.workspace }}/auth-api
         run: |
-          npm ci
+          npm install
 
       - name: Build source with babel support
         working-directory: ${{ github.workspace }}/auth-api
