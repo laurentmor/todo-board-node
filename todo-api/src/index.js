@@ -1,8 +1,9 @@
 #!/env/node
 
-// noinspection NpmUsedModulesInstalled
-import {PORT,NODE_ENV,DB,SECRET} from '@env';
-import http from 'http';
+
+import {DB, NODE_ENV, PORT, SECRET} from "@env";
+
+
 import express from "express";
 
 import bodyParser from "body-parser";
@@ -14,32 +15,40 @@ import mongoose from 'mongoose';
 
 
 import logger from "./config/logger-config";
-import TodoRouter from './routes/todos';
+import router from './routes/todos';
 
-import  MongoStore from'connect-mongo'  ;
+import MongoStore from 'connect-mongo';
 
 
 const app = express();
 app.get("/", function (req, res) {
 
+    const msg = "Hello World!";
 
-
-    res.status(200).send("Hello World!").end();
+    res.status(200).json(msg).end();
 });
 
 
-
+/**
+ *
+ * @returns {Promise<void>}
+ */
 async function connectToDB () {
+    logger.info('Connected to DB');
     mongoose.set('useCreateIndex', true);
     const connectPromise= mongoose.connect(DB, {useNewUrlParser: true, useUnifiedTopology: true});
-    await connectPromise.then(()=>{
-        logger.info("Connected to MongoDB (OK): " + DB);
+
+    await connectPromise.then(()=> {
+
+        app.use((req, res, next) => {
+            res.contentType('application/json');
+            next();
+        });
 
         // BodyParser Middleware
         app.use(bodyParser.json({limit: '50mb'}));
         app.use(bodyParser.urlencoded({limit: '50mb', extended: false}));
         app.use(cookieParser());
-
 
 
 // Express Session depending on ENV
@@ -63,34 +72,30 @@ async function connectToDB () {
 
 
 // Passport init
-       /* app.use(passport.initialize({userProperty: 'User.js'}));
-        app.use(passport.session(sessionOptions));
-*/
+        /* app.use(passport.initialize({userProperty: 'User.js'}));
+         app.use(passport.session(sessionOptions));
+ */
         /*app.use('/user', UserRouter, () => {
             logger.info("binding UserRouter to handle user requests " );
         });*/
-        app.use("/todo", TodoRouter, () => {
-            logger.info("bind: " + TodoRouter);
+        app.use("/todo", router, () => {
+            logger.info("bind: " + router);
         });
 
 
-
-
-    }).catch((err)=>{
-        logger.error("DB connect error  "+DB+" error "+err);
+    }).catch((err) => {
+        logger.error("DB connect error  " + DB + " error " + err);
 
     });
 
 
     //await Promise.all(connectPromise);
 }
+
  connectToDB().then(function () {
     app.listen(PORT, logger.info('Todo API listening on port ' +PORT+ ' in '+ NODE_ENV  ));
     if(process.argv[2]==="-c"){
         process.exit(0);
     }
 }).catch((e)=>{logger.error("Server won`t start!" + e)});
-
-
-http.createServer();
-//export default app;
+export default app;
