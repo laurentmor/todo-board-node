@@ -5,6 +5,9 @@
   "author": {
     "name": "Laurent"
   },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "dist": {
     "tarball": "auth-api"
   },
@@ -17,8 +20,8 @@
     "dist-start": "npm run dist && npm start"
   },
   "dependencies": {
-    "@babel/runtime": "^7.9.2",
-    "babel-plugin-dotenv-import": "^2.0.0",
+    "@babel/runtime": "^7.11.0",
+    "babel-plugin-dotenv-import": "^2.1.0",
     "babel-preset-env": "^1.7.0",
     "babel-register": "^6.26.0",
     "bcryptjs": "^2.4.3",
@@ -27,23 +30,22 @@
     "connect-mongo": "^3.2.0",
     "cookie-parser": "^1.4.5",
     "debug": "^4.1.1",
-    "dotenv": "^7.0.0",
-    "env": "0.0.2",
-    "express": "~4.17.1",
-    "express-session": "^1.17.0",
-    "mongoose": "~5.7.5",
-    "passport": "~0.4.0",
+    "dotenv": "^8.2.0",
+    "env": "^0.0.2",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "mongoose": "~5.9.27",
+    "passport": "^0.4.1",
     "passport-google-oauth2": "^0.2.0",
-    "passport-local": "~1.0.0",
+    "passport-local": "^1.0.0",
     "minimist": "^1.2.5",
-    "winston": "^3.2.1"
+    "winston": "^3.3.3"
   },
   "devDependencies": {
-    "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.9.0",
-    "@babel/plugin-proposal-class-properties": "^7.8.3",
-    "@babel/plugin-transform-runtime": "^7.9.0",
-    "@babel/preset-env": "^7.9.0",
+    "@babel/core": "^7.11.0",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/plugin-transform-runtime": "^7.11.0",
+    "@babel/preset-env": "^7.11.0",
     "sanitycheck": "^2.0.2"
   }
 }
