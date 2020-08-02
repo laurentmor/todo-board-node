@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "An api to manage todos with authentication support",
   "main": "index.js",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "scripts": {
     "test": "mocha --timeout 15000 --require @babel/polyfill --require @babel/register --recursive --exit",
     "dist": "babel --presets @babel/env -d lib/ src  --copy-files",
@@ -45,5 +48,6 @@
     "gulp-replace": "^1.0.0",
     "mocha": "^7.1.1",
     "really-need": "^1.9.2"
-  }
+  },
+  "renovate": {}
 }
