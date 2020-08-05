@@ -10,6 +10,7 @@ router.get('/', (req, res) => {
         res.status(200).send(req.session.user);
     }
     else {
+
         logger.warn('Attempt to use Auth API while not logged in');
         res.status(401).send({
         "User":"Not logged "
