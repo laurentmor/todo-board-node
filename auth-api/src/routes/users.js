@@ -1,12 +1,10 @@
 import  express from 'express';
 const router = express.Router();
 import passport from 'passport';
-import path  from 'path';
-import User from '../models/User';
 import logger from "../config/logger-config";
 import {ensureLoggedIn} from "connect-ensure-login";
 
-router.use(passport.session());
+
 router.get('/', (req, res) => {
     if(req.isAuthenticated()){
         res.status(200).send(req.session.user);
@@ -24,23 +22,14 @@ router.get('/', (req, res) => {
 
 const createValidUserFromRequest = (req, res) => {
     let password = req.body.password;
-
-
-
-   if(req.body.username===undefined){
-       res.status(422).json(
-           {error:"username.required"}
-
-           );
-   }
-  else if(req.body.password===undefined){
-       res.status(422).json(
-           {error:"password.required"}
-
-       );
-   }
-    /** @namespace req.body.password2 */
-      else  if (password === req.body.password2) {
+    let password2= req.body.password2;
+    let username = req.body.username;
+    let error=undefined;
+    if (username===undefined)error={error:"username.required"};
+    else if(password===undefined)error={error:"password.required"};
+    else if (password!==password2)error={error:"password.must.match"};
+    if (error)res.status(422).send(error).end();
+    else {
         return new User({
             name: req.body.name,
             email: req.body.email,
@@ -50,12 +39,11 @@ const createValidUserFromRequest = (req, res) => {
 
         });
 
-    } else {
-       res.status(422).json(
-           {error:"password.mustmatch"}
-
-       );
     }
+
+
+
+
 };
 
 // Register User
@@ -75,9 +63,12 @@ router.post('/create', (req, res) => {
 
 const localAuth = (req, res, next) => {
     //const options = {successRedirect: '/', failureRedirect: '/fail'};
-    passport.authenticate('local', function(err, user, info) {
+
+
+    passport.authenticate('local',null, (err, user) => {
+        logger.info("/auth/v1/login  local auth endpoint");
         if (err) { return next(err); }
-        if (!user) { return res.redirect('/login'); }
+        if (!user) { return res.redirect('/'); }
         req.logIn(user, function(err) {
             if (err) { return next(err); }
             logger.info(req.user.username);
@@ -92,14 +83,17 @@ const localAuth = (req, res, next) => {
 const googleAuth = (req, res, next) => {
 //TODO implement G authentication
 
-    passport.authenticate('google',{failureRedirect:'/user/',scope:['profile'] },(error,user,info)=>{
+    /*passport.authenticate('google',{failureRedirect:'/user/',scope:['profile'] },(error,user,info)=>{
        res.status(200).send(error).end();
        next();
-   })(req,res);
+   })(req,res);*/
+    next();
+    req();
+    res();
 };
 
 //Endpoint with default 'local' strategy
-router.get('/login', function(req, res, next) {
+router.post('/login', function(req, res, next) {
     localAuth(req,res,next);
 });
 // Endpoint to login with specific strategy
@@ -145,6 +139,7 @@ router.get('/logout', (req, res) => {
 });
 
 router.get('/all', (req, res) => {
+    logger.info("List all user endpoint invoked");
     let user = req.session.user;
     if (user && User.hasRole(user, "admin")) {
         User.find({}, (err, result) => {
@@ -158,3 +153,4 @@ router.get('/all', (req, res) => {
 
 // noinspection JSUndefinedPropertyAssignment
  export default router;
+
