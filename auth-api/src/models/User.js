@@ -31,18 +31,20 @@ const UserSchema = mongoose.Schema({
 	}
 });
 
-const User = module["exports"] = mongoose.model('User', UserSchema,false);
+const User  = mongoose.model('User', UserSchema,false);
 /**
  *
  * @param newUser
  * @param callback
  */
-module["exports"].createUser = (newUser, callback) => {
+const createUser = (newUser, callback) => {
+
 	/** @namespace crypt.genSalt */
 	crypt.genSalt(10, (err, salt) => {
 		/** @namespace crypt.hash */
 		crypt.hash(newUser.password, salt, (err, hash) => {
 			newUser.password = hash;
+
 			newUser.save(callback);
 		});
 	});
@@ -52,7 +54,7 @@ module["exports"].createUser = (newUser, callback) => {
  * @param username
  * @param callback
  */
-module["exports"].getUserByUsername = (username, callback) => {
+const getUserByUsername = (username, callback) => {
 	const query = {username: username};
 	User.findOne(query, callback);
 };
@@ -61,7 +63,7 @@ module["exports"].getUserByUsername = (username, callback) => {
  * @param id
  * @param callback
  */
-module.exports.getUserById = (id, callback) => {
+const getUserById = (id, callback) => {
 	User.findById(id, callback);
 };
 /**
@@ -70,7 +72,7 @@ module.exports.getUserById = (id, callback) => {
  * @param hash
  * @param callback
  */
-module["exports"].comparePassword = (candidatePassword, hash, callback) => {
+const comparePassword = (candidatePassword, hash, callback) => {
 	/** @namespace crypt.compare */
 	crypt.compare(candidatePassword, hash, (err, isMatch) => {
 		if(err) throw err;
@@ -83,5 +85,14 @@ module["exports"].comparePassword = (candidatePassword, hash, callback) => {
  * @param role
  * @returns {boolean}
  */
-module["exports"].hasRole = (user, role) => user.role === role;
+const hasRole = (user, role) => user.role === role;
+export default {
+	hasRole,
+	comparePassword,
+	createUser,
+	getUserById,
+	getUserByUsername,
+	User
+
+}
 

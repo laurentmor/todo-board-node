@@ -1,5 +1,5 @@
 import winston from 'winston';
-
+import {NODE_ENV} from '@env';
 //import  Mail from 'winston-mail' ;
 //import winstonExRegLogger from "winston-express-request-logger";
 
@@ -31,35 +31,41 @@ let format = winston.format.combine(
     )
 );
 
-const logger = winston.createLogger({
-    transports: [
-        new (winston.transports.Console)({
-            format: winston.format.combine(winston.format.colorize(), alignColorsAndTime)
+let logger;
+if (NODE_ENV==="production"){
+    logger = winston.createLogger({
+        transports: [
 
 
-        }),
-        new winston.transports.File(
-            { filename: 'app.log' ,
-                     format: format
+            new winston.transports.File(
+                { filename: 'app.log' ,
+                    format: format
+
+
+                })
+
+        ]
+
+
+    });
+}
+
+else {
+    logger = winston.createLogger({
+        transports: [
+
+            new (winston.transports.Console)({
+                format: winston.format.combine(winston.format.colorize(), alignColorsAndTime)
 
 
             })
-        //new winston.transports.File({level:'error', filename: 'error.log' ,format:format}),
-        /*new winston.transports.Mail({
-          to:'laurent.morissette@gmail.com',
-          host:'smtp.gmail.com',
-          username:'laurent.morissette@gmail.com',
-          password:'Linda2254@',
-          level:'error',
-          ssl:true,
-          tls:true
 
-        })*/
-
-    ]
+        ]
 
 
-});
+    });
+}
+
 /*winstonExRegLogger.createLogger({
     transports: [
 

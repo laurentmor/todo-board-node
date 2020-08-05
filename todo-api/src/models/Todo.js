@@ -34,10 +34,10 @@ const TodoSchema = new db.Schema({
 
 
 
-const Todo = module.exports = db.model('Todo', TodoSchema);
+const Todo = db.model('Todo', TodoSchema);
 
 
-module.exports.saveNew = function (data) {
+export function saveNew(data) {
     return new Promise((resolve, reject) => {
         data.todo.save((error, savedData) => {
             if (error) {
@@ -51,32 +51,35 @@ module.exports.saveNew = function (data) {
     });
 
 
-};
+}
 
-module.exports.getAll = function (filter, callback) {
-    Todo.find(filter, function (err, todo) {
+const getAll =  (filter, callback) =>{
+    Todo.find(filter,  (err, todo)=> {
         callback(todo);
     });
 };
 
-module.exports.update = function (id, modifications, callback) {
+const update =  (id, modifications, callback)=> {
     let conditions = {_id: id};
     let options = {new: true};
 
 
-    Todo.findOneAndUpdate(conditions, modifications, options, function (err, updatedTodo) {
+    Todo.findOneAndUpdate(conditions, modifications, options,  (err, updatedTodo)=> {
         callback(updatedTodo);
     })
 
 };
 const deleteOne = (id, callback) => {
-    Todo.findOneAndDelete({_id: id}, function (err, deleted) {
+    Todo.findOneAndDelete({_id: id},  (err, deleted) =>{
         callback(deleted);
     })
 
 };
 export {
-    deleteOne
+    deleteOne,
+    update,
+    getAll,
+    Todo
 }
 
 

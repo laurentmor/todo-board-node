@@ -17,7 +17,8 @@
     "watch": "babel --presets @babel/env -d lib/ src --watch --copy-files",
     "start": "node-dev lib/index.js",
     "check": "node lib/index.js -c",
-    "dist-start": "npm run dist && npm start"
+    "dist-start": "npm run dist && npm start",
+    "create-user": "node-dev lib/index.js -cu"
   },
   "dependencies": {
     "@babel/runtime": "^7.11.0",
