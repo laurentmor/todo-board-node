@@ -13,18 +13,22 @@ import session from 'express-session';
 import mongoose from 'mongoose';
 import helmet from 'helmet';
 import cors from 'cors';
-
+import flash from 'connect-flash';
 import MongoStore from 'connect-mongo';
 import { config } from 'dotenv';
-import passport from './config/passport-config';
+import passport from 'passport';
 import logger from './config/logger-config';
-import UserRouter from './routes/users';
+import path from 'path';
 import middleware from './middleware';
+import initPassport from './config/passport-config';
+import routes from './routes/users';
 
+const userRouter = routes(passport);
 config();
 const app = express();
 app.use(cors());
 app.use(helmet());
+app.use(flash());
 app.get('/',async (req, res,next) => {
   res.status(200).send('Hello World! from auth server '+req).end();
 });
@@ -51,8 +55,8 @@ const connectToDB = async () => {
     };
     app.use(express.json());
 
-    app.use(middleware.notFound);
-    app.use(middleware.errorHandler);
+    //app.use(middleware.notFound);
+    //app.use(middleware.errorHandler);
     // BodyParser Middleware
     app.use(bodyParser.json({ limit: '50mb' }));
     app.use(bodyParser.urlencoded({ limit: '50mb', extended: false }));
@@ -74,8 +78,12 @@ const connectToDB = async () => {
     app.use(passport.initialize({ userProperty: 'User.js' }));
     // noinspection JSCheckFunctionSignatures
     app.use(passport.session(sessionOptions));
+    app.use('/static', express.static(path.join(__dirname, 'public')))
 
-    app.use('/auth/v1', UserRouter, () => {
+    initPassport(passport);
+
+
+    app.use('/auth/v1', userRouter, () => {
       logger.info('binding UserRouter to handle user requests ');
     });
   }).catch((err) => {
@@ -94,7 +102,11 @@ const run = async () => {
       if (process.argv[2] === '-c') {
         process.exit(0);
       }
-    });
+    }).catch(
+
+
+
+   ).finally();
   }
   catch (error){
     await disconnectFromDb().then(()=>{
