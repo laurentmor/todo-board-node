@@ -4,7 +4,6 @@ import joigoose from 'joigoose';
 
 import  joi from 'joi'
 
-import crypt from 'bcryptjs';
 
 
 const Jg = joigoose(mongoose);
@@ -75,8 +74,8 @@ const createUser = (newUser, callback) => {
  * @param callback
  */
 const getUserByUsername = (username, callback) => {
-  const query = { username };
-  User.findOne(query, callback);
+  const query =  username ;
+  User.findOne(username, callback);
 };
 /**
  *
@@ -86,19 +85,7 @@ const getUserByUsername = (username, callback) => {
 const getUserById = (id, callback) => {
   User.findById(id, callback);
 };
-/**
- *
- * @param candidatePassword
- * @param hash
- * @param callback
- */
-const comparePassword = (candidatePassword, hash, callback) => {
-  /** @namespace crypt.compare */
-  crypt.compare(candidatePassword, hash, (err, isMatch) => {
-    if (err) throw err;
-    callback(null, isMatch);
-  });
-};
+
 /**
  *
  * @param user
@@ -108,7 +95,6 @@ const comparePassword = (candidatePassword, hash, callback) => {
 const hasRole = (user, role) => user.role === role;
 export default {
   hasRole,
-  comparePassword,
   createUser,
   getUserById,
   getUserByUsername,
