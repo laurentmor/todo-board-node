@@ -1,7 +1,7 @@
 import passport from 'passport';
 /* eslint-disable  import/no-unresolved */
 import {
-  GL_CID,GL_CS,GL_CB ,GL_UP_URL
+  GL_CID,GL_CS,GL_CB ,GL_UP_URL,TWITTER_CONSUMER_KEY,TWITTER_CONSUMER_SECRET
 } from '@env';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth2';
 import logger from './logger-config';
@@ -17,9 +17,24 @@ import User from '../models/User';
 import { Strategy as LocalStrategy } from 'passport-local';
 import crypt from 'bcryptjs';
 
-const loginTwitter=(passport)=>{
+import { Strategy as TwitterStrategy} from 'passport-twitter';
 
+const loginTwitter=(passport)=>{
+  passport.use('login-twitter',new TwitterStrategy({
+      consumerKey: TWITTER_CONSUMER_KEY,
+      consumerSecret: TWITTER_CONSUMER_SECRET,
+      callbackURL: "http://localhost:4268/auth/v1/twitter"
+    },
+
+    function(token, tokenSecret, profile, done) {
+    logger.info(done());
+    done();
+
+
+    }
+  ));
 }
+
 const login=(passport)=>{
   const isValidPassword = (user, password) => crypt.compareSync(password, user.password);
   passport.use('login', new LocalStrategy({

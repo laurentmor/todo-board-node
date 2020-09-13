@@ -50,6 +50,10 @@ export default passport => {
     req.logout();
     res.redirect('/');
   });
+  router.get('/twitter', passport.authenticate('login-twitter'));
+  router.get('/twitter/callback',
+    passport.authenticate('twitter', { successRedirect: '/',
+      failureRedirect: '/login' }));
 
   return router;
 }

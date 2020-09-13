@@ -1,10 +1,10 @@
 import   mongoose from 'mongoose';
 import joigoose from 'joigoose';
-
-
 import  joi from 'joi'
 
 
+
+import findOrCreate from 'mongoose-findorcreate';
 
 const Jg = joigoose(mongoose);
 // User Schema
@@ -47,6 +47,7 @@ const UserSchema = mongoose.Schema({
 const mongooseUserSchema = new mongoose.Schema(
   Jg.convert(sch, {})
 );
+mongooseUserSchema.plugin(findOrCreate);
 const User = mongoose.model('User', mongooseUserSchema, false);
 const validateUser=(user,callback,next)=>{
   let result=joi.valid(user,sch);
@@ -74,7 +75,7 @@ const createUser = (newUser, callback) => {
  * @param callback
  */
 const getUserByUsername = (username, callback) => {
-  const query =  username ;
+
   User.findOne(username, callback);
 };
 /**
@@ -93,6 +94,7 @@ const getUserById = (id, callback) => {
  * @returns {boolean}
  */
 const hasRole = (user, role) => user.role === role;
+
 export default {
   hasRole,
   createUser,

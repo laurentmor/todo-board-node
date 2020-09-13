@@ -12,7 +12,8 @@
     "tarball": "auth-api"
   },
   "scripts": {
-    "test": "mocha --timeout 15000 --require @babel/polyfill --require @babel/register --recursive --exit",
+    "test": "tap",
+    "_test": "mocha --timeout 15000 --require @babel/polyfill --require @babel/register --recursive --exit",
     "dist": "babel --presets @babel/env -d lib/ src  --copy-files",
     "watch": "babel --presets @babel/env -d lib/ src --watch --copy-files",
     "start": "nodemon lib/index.js",
@@ -24,7 +25,6 @@
   "dependencies": {
     "@babel/eslint-parser": "^7.11.3",
     "@babel/runtime": "^7.11.0",
-    "joi": "^17.2.0",
     "babel-eslint": "^10.1.0",
     "babel-plugin-dotenv-import": "^2.1.0",
     "babel-preset-env": "^1.7.0",
@@ -41,12 +41,15 @@
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "helmet": "^4.0.0",
+    "joi": "^17.2.0",
     "joigoose": "^8.0.0",
     "minimist": "^1.2.5",
     "mongoose": "~5.9.27",
+    "mongoose-findorcreate": "^3.0.0",
     "passport": "^0.4.1",
     "passport-google-oauth2": "^0.2.0",
     "passport-local": "^1.0.0",
+    "passport-twitter": "^1.0.4",
     "winston": "^3.3.3"
   },
   "devDependencies": {
@@ -60,6 +63,7 @@
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-babel": "^5.3.1",
     "eslint-plugin-import": "^2.22.0",
-    "sanitycheck": "^2.0.2"
+    "sanitycheck": "^2.0.2",
+    "tap": "^14.10.8"
   }
 }
