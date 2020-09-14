@@ -69,6 +69,7 @@ jobs:
       - name: Build source with babel support
         working-directory: ${{ github.workspace }}/auth-api
         run: |
+          npm install --only=dev
           npm run dist
 
       - name: perform API sanity check
