@@ -2,21 +2,14 @@
 /todo-board-node.iml
 /.idea/
 node_modules/
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/QA/unit-tests
-todo-api/public/images/
-todo-api/public/javascripts/
-/todo-api/.idea/
 
 /todo-api/combined.log
 
 
 /todo-api/error.log
 
-/todo-api/error.log
-#/auth-api/.env
+
+/*/.env
 
 *.log
 /todo-api/.nyc_output/
