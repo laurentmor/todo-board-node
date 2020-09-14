@@ -22,7 +22,6 @@
     "create-user": "node-dev lib/index.js -cu"
   },
   "dependencies": {
-    "@babel/core": "^7.11.0",
     "@babel/eslint-parser": "^7.11.3",
     "@babel/runtime": "^7.11.0",
     "joi": "^17.2.0",
