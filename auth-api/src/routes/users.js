@@ -25,19 +25,19 @@ export default passport => {
   router.post('/login', passport.authenticate('login', {
     successRedirect: '/home',
     failureRedirect: '/',
-    failureFlash : true
+    failureFlash: true
   }));
 
   /* GET Registration Page */
   router.get('/signup', (req, res) => {
-    res.render('register',{message: req.flash('message')});
+    res.render('register', { message: req.flash('message') });
   });
 
   /* Handle Registration POST */
   router.post('/signup', passport.authenticate('signup', {
     successRedirect: '/home',
     failureRedirect: '/signup',
-    failureFlash : true
+    failureFlash: true
   }));
 
   /* GET Home Page */

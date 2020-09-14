@@ -54,6 +54,7 @@ jobs:
       - name: Build source with babel support
         working-directory: ${{ github.workspace }}
         run: |
+
           cd todo-api
           npm run dist
           cd ..
@@ -73,6 +74,7 @@ jobs:
         working-directory: ${{ github.workspace }}/todo-api
         run: |
           uptime
+
 
 
 

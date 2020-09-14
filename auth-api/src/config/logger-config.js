@@ -20,7 +20,6 @@ const alignColorsAndTime = winston.format.combine(
   ),
 );
 const format = winston.format.combine(
-
   winston.format.label({
     // label:'-> [LOGGER]'
   }),
@@ -28,7 +27,6 @@ const format = winston.format.combine(
     format: 'HH:mm:ss',
   }),
   winston.format.printf(
-
     (info) => `[${info.timestamp}]${info.level.charAt(0)}: ${info.message}`,
   ),
 );

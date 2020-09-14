@@ -1,24 +1,36 @@
-import   mongoose from 'mongoose';
+import mongoose from 'mongoose';
 import joigoose from 'joigoose';
 
-
-import  joi from 'joi'
-
-
+import joi from 'joi';
 
 const Jg = joigoose(mongoose);
 // User Schema
-
 
 /**
  *
  * @type {mongoose.Schema}
  */
-const sch=joi.object({
-  username: joi.string().trim().min(5).max(10).required(),
-  password: joi.string().trim().min(5).max(10).required(),
-  email: joi.string().trim().email().min(5).max(10).optional(),
-  role: joi.string().trim().valid('user','admin').required()
+const sch = joi.object({
+  username: joi.string()
+    .trim()
+    .min(5)
+    .max(10)
+    .required(),
+  password: joi.string()
+    .trim()
+    .min(5)
+    .max(10)
+    .required(),
+  email: joi.string()
+    .trim()
+    .email()
+    .min(5)
+    .max(10)
+    .optional(),
+  role: joi.string()
+    .trim()
+    .valid('user', 'admin')
+    .required()
 });
 const UserSchema = mongoose.Schema({
   username: {
@@ -48,10 +60,10 @@ const mongooseUserSchema = new mongoose.Schema(
   Jg.convert(sch, {})
 );
 const User = mongoose.model('User', mongooseUserSchema, false);
-const validateUser=(user,callback,next)=>{
-  let result=joi.valid(user,sch);
+const validateUser = (user, callback, next) => {
+  let result = joi.valid(user, sch);
   console.log(sch.validate({}).error.details[0].message);
-}
+};
 /**
  *
  * @param newUser
@@ -74,7 +86,7 @@ const createUser = (newUser, callback) => {
  * @param callback
  */
 const getUserByUsername = (username, callback) => {
-  const query =  username ;
+  const query = username;
   User.findOne(username, callback);
 };
 /**

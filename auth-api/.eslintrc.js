@@ -1,6 +1,6 @@
 module.exports = {
-    parser: "@babel/eslint-parser",
-    extends: 'airbnb-base',
+  parser: '@babel/eslint-parser',
+  extends: 'airbnb-base',
   settings: {
     'import/resolver': {
       node: {
@@ -10,15 +10,15 @@ module.exports = {
     },
   },
   parserOptions: {
-        sourceType: "module",
-        allowImportExportEverywhere: false,
-       ecmaVersion: 6,
+    sourceType: 'module',
+    allowImportExportEverywhere: false,
+    ecmaVersion: 6,
 
-        ecmaFeatures: {
-            globalReturn: false,
-        },
-        babelOptions: {
-           // configFile: "path/to/config.js",
-        },
+    ecmaFeatures: {
+      globalReturn: false,
     },
+    babelOptions: {
+      // configFile: "path/to/config.js",
+    },
+  },
 };
