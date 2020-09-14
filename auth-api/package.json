@@ -19,7 +19,7 @@
     "check": "node lib/index.js -c",
     "dist-start": "npm run dist && npm start",
     "lint": "eslint --fix src",
-    "create-user": "node-dev lib/index.js -cu",
+    "create-user": "node-dev lib/index.js -cu"
 
   },
   "dependencies": {
