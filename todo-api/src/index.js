@@ -1,5 +1,8 @@
 #!/env/node
+import fs from 'fs';
+if(fs.exists('.env')){
 
+}
 
 import {DB, NODE_ENV, PORT, SECRET} from "@env";
 
