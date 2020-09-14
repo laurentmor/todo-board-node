@@ -10,7 +10,7 @@ Start server
 node index
 ```
 
-
+  
 Routes:
 
 POST /register : Register a user <br>
