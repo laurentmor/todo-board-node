@@ -20,6 +20,7 @@
     "dist-start": "npm run dist && npm start",
     "lint": "eslint --fix src",
     "create-user": "node-dev lib/index.js -cu"
+
   },
   "dependencies": {
     "@babel/eslint-parser": "^7.11.3",

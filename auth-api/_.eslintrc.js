@@ -17,11 +17,11 @@ module["export"]= {
 };
 */
 
-module["export"]={
-    "parser": "babel-eslint",
-    "parserOptions": {
-    "sourceType": "module",
-        "allowImportExportEverywhere": false,
-        "codeFrame": true
-}
-}
+module['export'] = {
+  'parser': 'babel-eslint',
+  'parserOptions': {
+    'sourceType': 'module',
+    'allowImportExportEverywhere': false,
+    'codeFrame': true
+  }
+};
