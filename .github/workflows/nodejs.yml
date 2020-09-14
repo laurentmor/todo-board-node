@@ -28,25 +28,45 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
+      - name: Prepare environnement by install babel before building
+        working-directory: ${{ github.workspace }}/todo-api
+        run: npm install babel -g
       # Jobs for todo-api
       - name: check that every files were checked out
-        working-directory: ${{ github.workspace }}/todo-api
-        run: ls -la
+        working-directory: ${{ github.workspace }}
+        run: |
+          cd todo-api
+          ls -la
+          cd ..
+          cd auth-api
+          ls -la
+
 
       - name: Install dependencies
-        working-directory: ${{ github.workspace }}/todo-api
+        working-directory: ${{ github.workspace }}
         run: |
+          cd todo-api
+          npm install
+          cd ..
+          cd auth-api
           npm install
 
       - name: Build source with babel support
-        working-directory: ${{ github.workspace }}/todo-api
+        working-directory: ${{ github.workspace }}
         run: |
+          cd todo-api
+          npm run dist
+          cd ..
+          cd auth-api
           npm run dist
 
       - name: perform API sanity check
-        working-directory: ${{ github.workspace }}/todo-api
+        working-directory: ${{ github.workspace }}
         run: |
-          cd lib && ls -la
+          cd todo-api
+          npm run check
+          cd ..
+          cd auth-api
           npm run check
 
       - name: unit tests
@@ -55,30 +75,5 @@ jobs:
           uptime
 
 
-      #Jobs for auth-api
-      - name: check that every files were checked out
-        working-directory: ${{ github.workspace }}/auth-api
-        run: ls -la
-
-      - name: Install dependencies
-        working-directory: ${{ github.workspace }}/auth-api
-        run: |
-          npm install
-
-      - name: Build source with babel support
-        working-directory: ${{ github.workspace }}/auth-api
-        run: |
-          npm run dist
-
-      - name: perform API sanity check
-        working-directory: ${{ github.workspace }}/auth-api
-        run: |
-          cd lib && ls -la
-          npm run check
-
-      - name: unit tests
-        working-directory: ${{ github.workspace }}/auth-api
-        run: |
-          uptime
 
 #source: https://github.community/t5/GitHub-Actions/Github-actions-working-directory-incorrectly-documented/td-p/29201
