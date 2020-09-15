@@ -1,6 +1,6 @@
 #!/env/node
 /* eslint-disable  import/no-unresolved */
-import { DB, NODE_ENV, PORT, SECRET, } from '@env';
+import { DB, NODE_ENV, PORT, SECRET } from '@env';
 /* eslint-enable  import/no-unresolved */
 import express from 'express';
 

@@ -63,6 +63,8 @@ jobs:
           DB: mongodb://localhost/user-DB
           PORT: 4268
           NODE_ENV: Test
+          SECRET: Bidon
+
         run: npm run dist
 
       - name: Build todo-api with babel support
@@ -71,6 +73,7 @@ jobs:
           DB: mongodb://localhost/todo-DB
           PORT: 4267
           NODE_ENV: Test
+          SECRET: Bidon
         run: npm run dist
       #- name: perform todo-api API sanity check
        # working-directory: ${{ github.workspace }}/todo-api
