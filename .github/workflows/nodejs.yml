@@ -32,7 +32,7 @@ jobs:
         working-directory: ${{ github.workspace }}/todo-api
         run: |
           npm install babel-cli -g
-          babel -v
+          babel --version
       # Jobs for todo-api
 
       - name: check that every files were checked out
