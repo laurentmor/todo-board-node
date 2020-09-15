@@ -32,7 +32,7 @@ app.get("/", function (req, res) {
  * @returns {Promise<void>}
  */
 async function connectToDB () {
-    logger.info('Connected to DB');
+    logger.info('Connected to DB '+DB);
     mongoose.set('useCreateIndex', true);
     const connectPromise= mongoose.connect(DB, {useNewUrlParser: true, useUnifiedTopology: true});
 
