@@ -52,16 +52,22 @@ jobs:
           cd auth-api
           npm install
 
-      - name: Build source with babel support
-        working-directory: ${{ github.workspace }}
-        run: |
 
-          cd todo-api
-          npm run dist
-          cd ..
-          cd auth-api
-          npm run dist
+      - name: Build auth-api with babel support
+          env:
+            DB: mongodb://localhost/user-DB
+            port: 4268
+            NODE_ENV: Test
+          working_directory: ${{ github.workspace }}/auth-api
+          run: npm run dist
 
+      - name: Build todo-api with babel support
+          env:
+            DB: mongodb://localhost/todo-DB
+            port: 4267
+            NODE_ENV: Test
+          working_directory: ${{ github.workspace }}/todo-api
+          run: npm run dist
       #- name: perform todo-api API sanity check
        # working-directory: ${{ github.workspace }}/todo-api
        # env:
