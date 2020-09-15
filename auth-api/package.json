@@ -20,11 +20,11 @@
     "dist-start": "npm run dist && npm start",
     "lint": "eslint --fix src",
     "create-user": "node-dev lib/index.js -cu"
-
   },
   "dependencies": {
     "@babel/eslint-parser": "^7.11.3",
     "@babel/runtime": "^7.11.0",
+    "@babel/cli": "^7.11.6",
     "joi": "^17.2.0",
     "babel-eslint": "^10.1.0",
     "babel-plugin-dotenv-import": "^2.1.0",
@@ -51,7 +51,7 @@
     "winston": "^3.3.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.11.0",
+    "@babel/core": "^7.11.6",
     "@babel/eslint-plugin": "^7.11.3",
     "@babel/plugin-proposal-class-properties": "^7.10.4",
     "@babel/plugin-transform-runtime": "^7.11.0",
