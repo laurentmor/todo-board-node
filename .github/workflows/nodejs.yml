@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [8.x, 9.x, 10.x, 12.x]
+        node-version: [12.x]
 
 
     services:
@@ -30,7 +30,9 @@ jobs:
 
       - name: Prepare environnement by install babel before building
         working-directory: ${{ github.workspace }}/todo-api
-        run: npm install babel-cli -g
+        run: |
+        npm install babel-cli -g
+        babel -v
       # Jobs for todo-api
 
       - name: check that every files were checked out
