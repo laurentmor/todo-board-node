@@ -62,29 +62,13 @@ jobs:
           cd auth-api
           npm run dist
 
-      - name: perform todo-api API sanity check
-        working-directory: ${{ github.workspace }}/todo-api
-        env:
-          DB: mongodb://localhost/todo-DB
-          NODE_ENV: test
-          PORT: 4267
-        run: npm run check
-
-      - name: perform auth-api API sanity check
-              working-directory: ${{ github.workspace }}/auth-api
-              env:
-                DB: mongodb://localhost/user-DB
-                NODE_ENV: test
-                PORT: 4268
-              run: npm run check
-
-
-
-
-      - name: unit tests
-        working-directory: ${{ github.workspace }}/todo-api
-        run: |
-          uptime
+      #- name: perform todo-api API sanity check
+       # working-directory: ${{ github.workspace }}/todo-api
+       # env:
+        #  DB: mongodb://localhost/todo-DB
+         # NODE_ENV: test
+         # PORT: 4267
+        #run: npm run check
 
 
 
