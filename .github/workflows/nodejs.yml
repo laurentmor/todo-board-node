@@ -31,8 +31,8 @@ jobs:
       - name: Prepare environnement by install babel before building
         working-directory: ${{ github.workspace }}/todo-api
         run: |
-        npm install babel-cli -g
-        babel -v
+          npm install babel-cli -g
+          babel -v
       # Jobs for todo-api
 
       - name: check that every files were checked out
