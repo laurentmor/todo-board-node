@@ -22,16 +22,18 @@ jobs:
           - 27017:27017
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Set Node ${{ matrix.node-version }}
-        uses: actions/setup-node@master
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Use Node.js latest
+        uses: actions/setup-node@v2-beta
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: "*"
+
 
       - name: Prepare environnement by install babel before building
         working-directory: ${{ github.workspace }}/todo-api
         run: |
-          npm install babel-cli@7.0.0 -g
+          npm install babel-cli@latest -g
           babel --version
       # Jobs for todo-api
 
