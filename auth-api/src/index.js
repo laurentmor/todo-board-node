@@ -19,7 +19,9 @@ import logger from './config/logger-config';
 import path from 'path';
 import initPassport from './config/passport-config';
 import routes from './routes/users';
-import csurf from 'csurf';
+//import csurf from 'csurf';
+var csrf = require('csurf')
+var csrfProtection = csrf({ cookie: true })
 
 const userRouter = routes(passport);
 config();
@@ -29,7 +31,7 @@ const app = express();
 app.use(cors());
 app.use(helmet());
 app.use(flash());
-app.use(csurf({ cookie: true }))
+app.use(csrfProtection);
 app.get('/', async (req, res, next) => {
   res.status(200)
     .send('Hello World! from auth server ' + req)
