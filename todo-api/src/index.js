@@ -1,6 +1,5 @@
 #!/env/node
 
-
 import {DB, NODE_ENV, PORT, SECRET} from "@env";
 
 
@@ -17,7 +16,6 @@ import mongoose from 'mongoose';
 import logger from "./config/logger-config";
 import router from './routes/todos';
 
-import MongoStore from 'connect-mongo';
 
 
 const app = express();
