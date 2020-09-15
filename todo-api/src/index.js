@@ -1,5 +1,5 @@
 #!/env/node
-
+import fs from 'fs';
 
 import {DB, NODE_ENV, PORT, SECRET} from "@env";
 
