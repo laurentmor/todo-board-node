@@ -65,33 +65,33 @@ jobs:
           NODE_ENV: Test
           SECRET: Bidon
 
-        run: npm run dist
+        run: npm run build:ts && npm test
 
-      - name: Build todo-api with babel support
-        working-directory: ${{ github.workspace }}/todo-api
-        env:
-          DB: mongodb://localhost/todo-DB
-          PORT: 4267
-          NODE_ENV: Test
-          SECRET: Bidon
-        run: npm run dist
+      #- name: Build todo-api with babel support
+       # working-directory: ${{ github.workspace }}/todo-api
+        #env:
+         # DB: mongodb://localhost/todo-DB
+          #PORT: 4267
+          #NODE_ENV: Test
+          #SECRET: Bidon
+        #run: npm run dist
 
-      - name: perform todo-api API sanity check
-        working-directory: ${{ github.workspace }}/todo-api
-        env:
-         DB: mongodb://localhost/todo-DB
-         NODE_ENV: test
-         PORT: 4267
-         SECRET: Bidon
-        run: npm run check
+      #- name: perform todo-api API sanity check
+       # working-directory: ${{ github.workspace }}/todo-api
+        #env:
+         #DB: mongodb://localhost/todo-DB
+         #NODE_ENV: test
+         #PORT: 4267
+         #SECRET: Bidon
+        #run: npm run check
 
-      - name:  perform auth-api API sanity check
-        working-directory: ${{ github.workspace }}/auth-api
-        env:
-         DB: mongodb://localhost/user-DB
-         PORT: 4268
-         SECRET: Bidon
-        run: npm run check
+     # - name:  perform auth-api API sanity check
+      #  working-directory: ${{ github.workspace }}/auth-api
+       # env:
+        # DB: mongodb://localhost/user-DB
+         #PORT: 4268
+         #SECRET: Bidon
+        #run: npm run check
 
 
 
