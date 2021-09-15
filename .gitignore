@@ -15,5 +15,5 @@ todo-api/.env
 /todo-api/.nyc_output/
 /todo-api/dataSets/
 /todo-api/lib/
-/auth-api/lib/
+/auth-api/lib
 auth-api/.env
