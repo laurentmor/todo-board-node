@@ -19,6 +19,8 @@
   },
   "homepage": "https://github.com/laurentmor/todo-board-node#readme",
   "dependencies": {
+    "joigoose": "^8.0.2",
+    "mongoose": "^6.0.4",
     "submodules-install": "^1.0.1"
   },
   "submodules": [

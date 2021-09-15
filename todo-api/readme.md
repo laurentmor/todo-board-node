@@ -4,7 +4,7 @@ Install packages
 npm install
 ```
 
-Start server
+Start _server
 
 ```
 node index
