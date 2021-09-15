@@ -17,3 +17,4 @@ todo-api/.env
 /todo-api/lib/
 /auth-api/lib
 auth-api/.env
+.run

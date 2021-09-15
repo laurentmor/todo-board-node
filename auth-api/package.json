@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "tap test/**/*.test.ts",
+    "test": "tap test/**/*.test.ts --reporter classic",
     "start": "npm run build:ts && fastify start -l info dist/app.js",
     "build:ts": "tsc",
     "dev": "tsc && concurrently -k -p \"[{name}]\" -n \"TypeScript,App\" -c \"yellow.bold,cyan.bold\"  \"tsc -w\" \"fastify start -w -l info -P dist/app.js\""
@@ -24,6 +24,7 @@
   "devDependencies": {
     "@types/node": "^14.0.18",
     "concurrently": "^5.1.0",
+    "prettier": "2.4.0",
     "tap": "^14.0.0",
     "typescript": "^3.9.6"
   }

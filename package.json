@@ -4,7 +4,6 @@
   "description": "A todo cork board that uses Node as a backend API and MongoDB as storage",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "preinstall": "submodules-install"
   },
   "repository": {
@@ -19,12 +18,10 @@
   },
   "homepage": "https://github.com/laurentmor/todo-board-node#readme",
   "dependencies": {
-    "joigoose": "^8.0.2",
-    "mongoose": "^6.0.4",
     "submodules-install": "^1.0.1"
   },
   "submodules": [
-    "todo-api/**",
-    "auth-api/**"
+    "todo-api/",
+    "auth-api/"
   ]
 }
