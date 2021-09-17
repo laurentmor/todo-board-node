@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import pino from "pino";
 
 //import { DB, NODE_ENV, PORT, SECRET } from '@env'
@@ -22,10 +23,20 @@ const logger = pino({
 })
 const fastify:FastifyInstance = fastify0({logger:logger});
 require('../src/config/db')(fastify);
+=======
+const pino = require('pino')
+const logger = pino({
+	prettyPrint: {},
+	prettifier: require('pino-colada')
+})
+const fastify = require('fastify')({logger:logger});
+require('../src/config/db');
+>>>>>>> 2ee97ac (added shit)
 
 const createServer  = async () => {
 
 
+<<<<<<< HEAD
 	await fastify.register(fastify_cors);
 	fastify.register(fastify_blipp);
 
@@ -49,3 +60,19 @@ const createServer  = async () => {
 };
 
 export default createServer;
+=======
+	await fastify.register(require('fastify-cors'));
+
+	await fastify.register(require('../src/routes/health'), { prefix: '/health' });
+	await fastify.register(require('../src/routes/product'), { prefix: '/product' });
+
+	fastify.setErrorHandler((error, req, res) => {
+		req.log.error(error.toString());
+		res.send({ error });
+	});
+
+	return fastify;
+};
+
+module.exports = createServer;
+>>>>>>> 2ee97ac (added shit)

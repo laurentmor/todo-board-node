@@ -34,4 +34,8 @@ async function routes(fastify) {
 
 }
 
+<<<<<<< HEAD
 export default routes;
+=======
+module.exports = routes;
+>>>>>>> 2ee97ac (added shit)
