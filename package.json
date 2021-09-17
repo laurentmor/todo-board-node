@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/laurentmor/todo-board-node#readme",
   "dependencies": {
+    "pino-colada": "^2.2.0",
     "submodules-install": "^1.0.1"
   },
   "submodules": [

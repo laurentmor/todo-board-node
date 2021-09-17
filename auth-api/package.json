@@ -2,30 +2,36 @@
   "name": "auth-api",
   "version": "1.0.0",
   "description": "",
-  "main": "app.ts",
-  "directories": {
-    "test": "test"
-  },
+  "main": "index.js",
   "scripts": {
-    "test": "tap test/**/*.test.ts --reporter classic",
-    "start": "npm run build:ts && fastify start -l info dist/app.js",
-    "build:ts": "tsc",
-    "dev": "tsc && concurrently -k -p \"[{name}]\" -n \"TypeScript,App\" -c \"yellow.bold,cyan.bold\"  \"tsc -w\" \"fastify start -w -l info -P dist/app.js\""
+    "dev": "nodemon --watch './src/*.ts' --exec ts-node ./src/index.ts",
+    "build": "tsc",
+    "test": "jest --coverage",
+    "test:watch": "npm run test -- --watchAll",
+    "commit": "git cz"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "fastify": "^3.0.0",
-    "fastify-autoload": "^3.0.2",
-    "fastify-cli": "^2.2.0",
-    "fastify-plugin": "^2.0.0"
+    "dotenv": "8.2.0",
+    "fastify": "^3.14.2",
+    "fastify-cors": "5.2.0",
+    "mongoose": "^5.12.3"
   },
   "devDependencies": {
-    "@types/node": "^14.0.18",
-    "concurrently": "^5.1.0",
-    "prettier": "2.4.0",
-    "tap": "^14.0.0",
-    "typescript": "^3.9.6"
+    "@types/cors": "^2.8.10",
+    "@types/jest": "^26.0.22",
+    "@types/mongoose": "^5.10.4",
+    "@types/node": "^14.14.37",
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.22.0",
+    "eslint": "^7.24.0",
+    "git-cz": "^4.7.6",
+    "jest": "^26.6.3",
+    "nodemon": "^2.0.7",
+    "ts-jest": "^26.5.4",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.4"
   }
 }
