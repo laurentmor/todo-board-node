@@ -7,7 +7,11 @@ async function routes (fastify) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 export default routes;
 =======
 module.exports = routes;
 >>>>>>> 2ee97ac (added shit)
+=======
+export default routes;
+>>>>>>> 0f95521 (fix sec)

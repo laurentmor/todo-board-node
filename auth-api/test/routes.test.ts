@@ -5,12 +5,17 @@ describe('Product CRUD', () => {
 
 	beforeAll(async (done) => {
 <<<<<<< HEAD
+<<<<<<< HEAD
 			server = await require('../src/index');
 		    done();
 =======
 		done();
 		server = await require('../src/index');
 >>>>>>> 2ee97ac (added shit)
+=======
+			server = await require('../src/index');
+		    done();
+>>>>>>> 0f95521 (fix sec)
 	});
 
 	afterAll(async (done) => {
@@ -21,10 +26,14 @@ describe('Product CRUD', () => {
 
 	test('Add Product POST /product', async (done) => {
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 		server = await require('../src/index');
 >>>>>>> 2ee97ac (added shit)
+=======
+
+>>>>>>> 0f95521 (fix sec)
 		const response = await server.inject({
 			method: 'POST',
 			url: '/product',
@@ -88,7 +97,11 @@ describe('Product CRUD', () => {
 	});
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 });
 =======
 });
 >>>>>>> 2ee97ac (added shit)
+=======
+});
+>>>>>>> 0f95521 (fix sec)

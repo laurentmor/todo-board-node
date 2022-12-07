@@ -1,5 +1,8 @@
 module.exports = {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 0f95521 (fix sec)
   globals: {
     'ts-jest': {
       tsconfig: 'tsconfig.json'
@@ -12,6 +15,7 @@ module.exports = {
   testMatch: ['**/test/**/*.test.ts'],
   testEnvironment: 'node'
 }
+<<<<<<< HEAD
 =======
 	globals: {
 		'ts-jest': {
@@ -26,3 +30,5 @@ module.exports = {
 	testEnvironment: 'node'
 };
 >>>>>>> 2ee97ac (added shit)
+=======
+>>>>>>> 0f95521 (fix sec)
