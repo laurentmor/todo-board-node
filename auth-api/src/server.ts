@@ -1,25 +1,51 @@
-const pino = require('pino')
+import pino from "pino";
+
+//import { DB, NODE_ENV, PORT, SECRET } from '@env'
+
+import pino_colada from "pino-colada";
+
+import fastify_cors from "fastify-cors";
+import product from "./models/product";
+
+import healthRoutes from "../src/routes/health";
+
+import productRoutes from "../src/routes/product";
+import customController from "../src/routes/customController";
+
+import fastify0, {FastifyError, FastifyInstance,FastifyRequest,FastifyReply} from "fastify";
+
+import fastify_blipp from "fastify-blipp";
+
 const logger = pino({
 	prettyPrint: {},
-	prettifier: require('pino-colada')
+	prettifier: pino_colada
 })
-const fastify = require('fastify')({logger:logger});
-require('../src/config/db');
+const fastify:FastifyInstance = fastify0({logger:logger});
+require('../src/config/db')(fastify);
 
 const createServer  = async () => {
 
 
-	await fastify.register(require('fastify-cors'));
+	await fastify.register(fastify_cors);
+	fastify.register(fastify_blipp);
 
-	await fastify.register(require('../src/routes/health'), { prefix: '/health' });
-	await fastify.register(require('../src/routes/product'), { prefix: '/product' });
+	await fastify.register(healthRoutes, { prefix: '/health' });
+	await fastify.register(productRoutes, { prefix: '/product' });
+	fastify.register(require('fastify-autocrud'), {
+		prefix: '/api/products',
+		Collection: product,
+		additionalRoute: customController
+	})
 
-	fastify.setErrorHandler((error, req, res) => {
+	fastify.setErrorHandler((error:FastifyError, req:FastifyRequest, res:FastifyReply) => {
 		req.log.error(error.toString());
 		res.send({ error });
 	});
-
+	fastify.blipp();
+	process.on('warning', (warning) => {
+		console.log(warning.stack);
+	});
 	return fastify;
 };
 
-module.exports = createServer;
+export default createServer;

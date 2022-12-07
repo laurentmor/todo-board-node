@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --watch './src/*.ts' --exec ts-node ./src/index.ts",
-    "build": "tsc",
+    "dev": "nodemon --watch './src/*.ts' --exec ts-node ./src/index.ts --trace-deprecation ...",
+    "build": "tsc ",
     "test": "jest --coverage",
     "test:watch": "npm run test -- --watchAll",
     "commit": "git cz"
@@ -16,8 +16,12 @@
   "dependencies": {
     "dotenv": "8.2.0",
     "fastify": "^3.14.2",
+    "fastify-autocrud": "^0.0.4",
+    "fastify-blipp": "^3.1.0",
     "fastify-cors": "5.2.0",
-    "mongoose": "^5.12.3"
+    "mongodb-memory-server": "^7.4.1",
+    "mongoose": "^5.12.3",
+    "mongoose-unique-validator": "^2.0.3"
   },
   "devDependencies": {
     "@types/cors": "^2.8.10",

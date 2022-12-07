@@ -4,8 +4,8 @@ describe('Product CRUD', () => {
 	let server;
 
 	beforeAll(async (done) => {
-		done();
-		server = await require('../src/index');
+			server = await require('../src/index');
+		    done();
 	});
 
 	afterAll(async (done) => {
@@ -15,7 +15,7 @@ describe('Product CRUD', () => {
 	});
 
 	test('Add Product POST /product', async (done) => {
-		server = await require('../src/index');
+
 		const response = await server.inject({
 			method: 'POST',
 			url: '/product',

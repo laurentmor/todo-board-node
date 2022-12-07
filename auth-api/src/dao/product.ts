@@ -1,5 +1,8 @@
-import Product from '../models/product';
+import Product, {IProduct} from '../models/product';
 
+/**
+ *
+ */
 export const getAllProducts = async () => {
 	try {
 		return await Product.find({});
@@ -7,7 +10,10 @@ export const getAllProducts = async () => {
 		throw err;
 	}
 };
-
+/**
+ *
+ * @param _id
+ */
 export const getOneProduct = async (_id) => {
 	try {
 		return await Product.findOne({ _id });
@@ -15,8 +21,11 @@ export const getOneProduct = async (_id) => {
 		throw err;
 	}
 };
-
-export const createProduct = async (data) => {
+/**
+ *
+ * @param data
+ */
+export const createProduct:any = async (data) => {
 	try {
 		return await Product.create(data);
 	} catch (err) {
@@ -24,6 +33,12 @@ export const createProduct = async (data) => {
 	}
 };
 
+
+/**
+ *
+ * @param _id
+ * @param data
+ */
 export const updateProduct = async (_id, data) => {
 	try {
 		return await Product.updateOne({ _id }, data);
@@ -31,6 +46,10 @@ export const updateProduct = async (_id, data) => {
 		throw err;
 	}
 };
+/**
+ *
+ * @param _id
+ */
 
 export const deleteProduct = async (_id) => {
 	try {

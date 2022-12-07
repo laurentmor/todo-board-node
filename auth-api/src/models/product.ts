@@ -1,13 +1,20 @@
-import mongoose from 'mongoose';
+import  mongoose  from 'mongoose';
 
-const Schema = mongoose.Schema;
+import uniqueValidator from "mongoose-unique-validator";
 
-const productSchema = new Schema({
-	name: { type: String, required: true },
+
+export interface IProduct extends mongoose.Document{
+	name: { type: String, required: true,unique:true },
+	category: { type: String, required: true },
+	unit: { type: Number, required: true }
+}
+const productSchema:mongoose.Schema = new mongoose.Schema({
+	name: { type: String, required: true, unique:true },
 	category: { type: String, required: true },
 	unit: { type: Number, required: true }
 }, {
 	timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' },
+	autoCreate:true
 });
-
-export default mongoose.model('Product', productSchema);
+productSchema.plugin(uniqueValidator);
+export default mongoose.model<IProduct>('Product', productSchema);
